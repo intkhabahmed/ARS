@@ -34,7 +34,6 @@ import com.cg.ars.utility.MyUtil;
 @Controller
 @SessionAttributes(ARSConstants.USER)
 public class AirlineController {
-
 	@Autowired
 	IAirlineService airlineService;
 
