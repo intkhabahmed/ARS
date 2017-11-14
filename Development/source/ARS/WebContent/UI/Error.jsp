@@ -22,7 +22,7 @@
 	rel="stylesheet">
 </head>
 <body>
-	<div class="jumbotron" id="errorBlock">
+	<div class="jumbotron center" id="errorBlock">
 		<h1 class="text-center">Internal Server Error 500<br> ${message}</h1>
 		<h2 class="text-center"><a href="index.html" class="btn btn-danger btn-lg">Go Home</a></h2>
 		<h2 class="text-center"><a href="showUserProfile.html" class="btn btn-danger btn-lg">Go to Profile</a></h2>

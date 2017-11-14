@@ -22,7 +22,7 @@ import com.cg.ars.utility.QueryMapper;
  */
 
 @Repository
-public class AirlineDAOImpl implements IAirlineDAO {
+public class AirlineDAOImpl implements AirlineDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -33,12 +33,10 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.cg.ars.dao.IAirlineDAO#viewListOfFlights(java.lang.String,
-	 * java.lang.String) It returns the list of flights on search basis to
-	 * service layer
+	 * @see com.cg.ars.dao.AirlineDAO#getCityAbbreviation(java.lang.String)
 	 */
 	@Override
-	public String getAbbreviation(String cityName) throws RuntimeException {
+	public String getCityAbbreviation(String cityName) throws RuntimeException {
 		TypedQuery<String> sqlQuery = entityManager.createQuery(
 				QueryMapper.GETABBREVIATION, String.class);
 		sqlQuery.setParameter("location", cityName.toUpperCase());
@@ -48,11 +46,11 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#viewListOfFlights(java.lang.String,
+	 * @see com.cg.as.dao.IAirlineDAO#retrieveFlights(java.lang.String,
 	 * java.lang.String) It returns the list of flight to service layer
 	 */
 	@Override
-	public List<Flight> viewListOfFlights(String query, String searchBasis)
+	public List<Flight> retrieveFlights(String query, String searchBasis)
 			throws RuntimeException {
 		TypedQuery<Flight> sqlQuery = null;
 		if (searchBasis.equals("dest")) {
@@ -99,7 +97,7 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	 * to service layer
 	 */
 	@Override
-	public List<BookingInformation> viewBookings(String query,
+	public List<BookingInformation> retrieveBookings(String query,
 			String searchBasis) throws RuntimeException {
 
 		TypedQuery<BookingInformation> sqlQuery = null;
@@ -134,12 +132,12 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#validLogin(com.cg.as.entity.User) This
+	 * @see com.cg.as.dao.IAirlineDAO#validateLogin(com.cg.as.entity.User) This
 	 * function checks that user is valid or not and returns the result to
 	 * service layer
 	 */
 	@Override
-	public User validLogin(User user) throws RuntimeException {
+	public User validateLogin(User user) throws RuntimeException {
 		TypedQuery<User> sqlQuery = entityManager.createQuery(
 				QueryMapper.VALIDATEUSERNAMEANDPASSWORD, User.class);
 		sqlQuery.setParameter(ARSConstants.USER, user.getUsername());
@@ -152,11 +150,11 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#signUp(com.cg.as.entity.User) This
+	 * @see com.cg.as.dao.IAirlineDAO#addUser(com.cg.as.entity.User) This
 	 * function does sign up and return user object to service layer
 	 */
 	@Override
-	public User signUp(User user) throws RuntimeException {
+	public User addUser(User user) throws RuntimeException {
 		entityManager.persist(user);
 		entityManager.flush();
 		logger.info("New User signed in with following username:"
@@ -167,12 +165,12 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#bookingCancel(java.lang.String) This
+	 * @see com.cg.as.dao.IAirlineDAO#cancelBooking(java.lang.String) This
 	 * function cancels the booking and returns the booking object to service
 	 * layer
 	 */
 	@Override
-	public BookingInformation bookingCancel(int bookingId)
+	public BookingInformation cancelBooking(int bookingId)
 			throws RuntimeException {
 		BookingInformation booking = entityManager.find(
 				BookingInformation.class, bookingId);
@@ -185,12 +183,13 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#flightOccupancyDetails(java.lang.String)
-	 * It returns the total first seats, total business seats, no. of passengers
-	 * in class type First and in class type Business to service layer
+	 * @see
+	 * com.cg.as.dao.IAirlineDAO#getFlightOccupancyDetails(java.lang.String) It
+	 * returns the total first seats, total business seats, no. of passengers in
+	 * class type First and in class type Business to service layer
 	 */
 	@Override
-	public int[] flightOccupancyDetails(String flightNo)
+	public int[] getFlightOccupancyDetails(String flightNo)
 			throws RuntimeException {
 		int[] seatDetails = new int[4];
 		TypedQuery<Integer> sqlQuery = null;
@@ -213,23 +212,6 @@ public class AirlineDAOImpl implements IAirlineDAO {
 		logger.info("Flight occupancy details retrieved for flight: "
 				+ flightNo);
 		return seatDetails;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#modifyBookingInformation(com.cg.as.entity.
-	 * BookingInformation) It modifies the booking information and returns
-	 * booking object to service layer
-	 */
-	@Override
-	public BookingInformation modifyBookingInformation(
-			BookingInformation booking) throws RuntimeException {
-		booking = entityManager.merge(booking);
-		entityManager.flush();
-		logger.info("Booking modified for booking id: "
-				+ booking.getBookingId());
-		return booking;
 	}
 
 	/*

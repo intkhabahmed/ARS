@@ -1,13 +1,16 @@
-package com.cg.ars.service;
+package com.cg.ars.dao;
 
 import java.util.List;
 
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
-import com.cg.ars.exception.AirlineException;
 
-public interface IAirlineService {
+/**
+ * @author inahmed
+ *
+ */
+public interface AirlineDAO {
 
 	/**
 	 * @param query
@@ -15,7 +18,7 @@ public interface IAirlineService {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<Flight> viewListOfFlights(String query, String searchBasis)
+	public List<Flight> retrieveFlights(String query, String searchBasis)
 			throws RuntimeException;
 
 	/**
@@ -24,7 +27,7 @@ public interface IAirlineService {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<BookingInformation> viewBookings(String query,
+	public List<BookingInformation> retrieveBookings(String query,
 			String searchBasis) throws RuntimeException;
 
 	/**
@@ -32,38 +35,30 @@ public interface IAirlineService {
 	 * @return type User
 	 * @throws RuntimeException
 	 */
-	public User signUp(User user) throws RuntimeException;
-
-	/**
-	 * @param bookingId
-	 * @return type BookingInformation
-	 * @throws RuntimeException
-	 */
-	public BookingInformation bookingCancel(int bookingId)
-			throws RuntimeException;
+	public User addUser(User user) throws RuntimeException;
 
 	/**
 	 * @param user
 	 * @return type User
 	 * @throws RuntimeException
 	 */
-	public User validLogin(User user) throws RuntimeException;
+	public User validateLogin(User user) throws RuntimeException;
+
+	/**
+	 * @param bookingId
+	 * @return type BookingInformation
+	 * @throws RuntimeException
+	 */
+	public BookingInformation cancelBooking(int bookingId)
+			throws RuntimeException;
 
 	/**
 	 * @param flightNo
 	 * @return type Integer Array
 	 * @throws RuntimeException
 	 */
-	public int[] flightOccupancyDetails(String flightNo)
+	public int[] getFlightOccupancyDetails(String flightNo)
 			throws RuntimeException;
-
-	/**
-	 * @param booking
-	 * @return type BookingInformation
-	 * @throws RuntimeException
-	 */
-	public BookingInformation modifyBookingInformation(
-			BookingInformation booking) throws RuntimeException;
 
 	/**
 	 * @param booking
@@ -76,20 +71,11 @@ public interface IAirlineService {
 	/**
 	 * @param query
 	 * @param searchBasis
-	 * @return type boolean
+	 * @return type String
 	 * @throws RuntimeException
 	 */
-	public boolean checkAvailabiltiy(String query, String searchBasis)
+	public List<String> checkAvailabiltiy(String query, String searchBasis)
 			throws RuntimeException;
-
-	/**
-	 * @param username
-	 * @param password
-	 * @return type User
-	 * @throws RuntimeException
-	 * @throws AirlineException 
-	 */
-	public User forgotPassword(User user) throws RuntimeException, AirlineException;
 
 	/**
 	 * @param user
@@ -97,7 +83,22 @@ public interface IAirlineService {
 	 * @throws RuntimeException
 	 */
 	public User updateUser(User user) throws RuntimeException;
+
+
+	/**
+	 * @param flight
+	 * @return type void
+	 * @throws RuntimeException
+	 */
+	public void updateFlight(Flight flight) throws RuntimeException;
 	
+	/**
+	 * @param username
+	 * @return type User
+	 * @throws RuntimeException
+	 */
+	public User getUserDetails(String username) throws RuntimeException;
+
 	/**
 	 * @return type List
 	 * @throws RuntimeException
@@ -106,8 +107,9 @@ public interface IAirlineService {
 
 	/**
 	 * @param cityName
-	 * @return Type String
+	 * @return type String
 	 * @throws RuntimeException
 	 */
-	public String getAbbreviation(String cityName) throws RuntimeException;
+	public String getCityAbbreviation(String cityName) throws RuntimeException;
+
 }
