@@ -177,7 +177,6 @@ public class AirlineServiceImpl implements IAirlineService {
 			return airlineDAO.updateUser(user);
 		}
 		throw new AirlineException(ARSConstants.USERNAMENOTEXIST);
-
 	}
 
 	/*
@@ -192,10 +191,10 @@ public class AirlineServiceImpl implements IAirlineService {
 	@Override
 	public boolean checkAvailabiltiy(String query, String searchBasis)
 			throws RuntimeException {
-			if(airlineDAO.checkAvailabiltiy(query, searchBasis).isEmpty()){
-				return true;
-			}
-			return false;
+		if (airlineDAO.checkAvailabiltiy(query, searchBasis).isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 	/*

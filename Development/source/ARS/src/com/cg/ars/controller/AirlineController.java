@@ -137,7 +137,7 @@ public class AirlineController {
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWSIGNUP)
 	public String showSignup(Model model) {
-		model.addAttribute(ARSConstants.USEROBJ, new User());
+		model.addAttribute(ARSConstants.USER, new User());
 		return ARSConstants.SIGNUP;
 	}
 
@@ -153,7 +153,7 @@ public class AirlineController {
 			@Valid @ModelAttribute(ARSConstants.USEROBJ) User user,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute(ARSConstants.USEROBJ, user);
+			model.addAttribute(ARSConstants.USER, user);
 			return ARSConstants.SIGNUP;
 		}
 		try {
@@ -263,11 +263,15 @@ public class AirlineController {
 				model.addAttribute(ARSConstants.FLIGHT, flights.get(0));
 				returnPage = ARSConstants.BOOKING;
 			}
-		} catch (RuntimeException e) {
+		} catch (NoResultException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					ARSConstants.INVALIDUSERNAMEPWD);
 			model.addAttribute(ARSConstants.USER, new User());
 			returnPage = ARSConstants.LOGIN;
+		} catch (RuntimeException runtimeException) {
+			model.addAttribute(ARSConstants.MESSAGE,
+					ARSConstants.ERROR + runtimeException.getMessage());
+			return ARSConstants.ERRORPAGE;
 		}
 		model.addAttribute(ARSConstants.USER, user);
 		model.addAttribute(ARSConstants.BOOKING, bookingInformation);
@@ -305,8 +309,10 @@ public class AirlineController {
 			bookingInformation.setBookingDate(Date.valueOf(LocalDate.now()));
 			model.addAttribute(ARSConstants.FLIGHT, flights.get(0));
 			model.addAttribute(ARSConstants.BOOKING, bookingInformation);
-		} catch (RuntimeException e) {
-			e.getMessage();
+		} catch (RuntimeException runtimeException) {
+			model.addAttribute(ARSConstants.MESSAGE,
+					ARSConstants.ERROR + runtimeException.getMessage());
+			return ARSConstants.ERRORPAGE;
 		}
 		return ARSConstants.BOOKING;
 	}

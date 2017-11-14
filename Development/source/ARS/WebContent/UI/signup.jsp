@@ -34,7 +34,7 @@
 							<div class="panel-body">
 								
 								<hr>
-								<form:form class="form-horizontal" action="signup.html" method="post" modelAttribute="userObj">
+								<form:form class="form-horizontal" action="signup.html" method="post" modelAttribute="user">
 									<div class="form-group">
 										<form:label path="username">Username:</form:label>
 										<form:input type="text" class="form-control" path="username" required="required"
