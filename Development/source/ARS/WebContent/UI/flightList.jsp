@@ -30,7 +30,7 @@
 		<div class="row">
 			<div id="searchFormContainer">
 				<hr>
-				<form:form class="form-inline" action="listOfFlights.html"
+				<form:form class="form-inline" action="retrieveListOfFlights.html"
 					method="post" modelAttribute="booking">
 					<div class="row">
 						<div class="col-sm-2">
