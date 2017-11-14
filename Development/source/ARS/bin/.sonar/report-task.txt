@@ -1,0 +1,5 @@
+projectKey=AirlineReservationSystem
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/AirlineReservationSystem
+ceTaskId=AV-4pJFHpPnPvjLWHaSM
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AV-4pJFHpPnPvjLWHaSM

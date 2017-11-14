@@ -5,6 +5,7 @@ import java.util.List;
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
+import com.cg.ars.exception.AirlineException;
 
 public interface IAirlineService {
 
@@ -86,8 +87,9 @@ public interface IAirlineService {
 	 * @param password
 	 * @return type User
 	 * @throws RuntimeException
+	 * @throws AirlineException 
 	 */
-	public User forgotPassword(User user) throws RuntimeException;
+	public User forgotPassword(User user) throws RuntimeException, AirlineException;
 
 	/**
 	 * @param user

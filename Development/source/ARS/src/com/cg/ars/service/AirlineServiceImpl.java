@@ -2,7 +2,6 @@ package com.cg.ars.service;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import com.cg.ars.dao.IAirlineDAO;
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
+import com.cg.ars.exception.AirlineException;
 import com.cg.ars.utility.ARSConstants;
 
 @Service
@@ -168,20 +168,15 @@ public class AirlineServiceImpl implements IAirlineService {
 	 * AirlineDaoImpl and returns the updated result to AirlineController
 	 */
 	@Override
-	public User forgotPassword(User user) throws RuntimeException {
-		try {
-			String password = user.getPwd();
-			user = airlineDAO.getUserDetails(user.getUsername());
-			if (ARSConstants.CUSTOMER.equals(user.getRole())) {
-				user.setPwd(password);
-				return airlineDAO.updateUser(user);
-			} else
-				throw new RuntimeException(ARSConstants.USERNAMENOTEXIST);
-		} catch (NoResultException nre) {
-			throw new RuntimeException(ARSConstants.USERNAMENOTEXIST);
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage());
+	public User forgotPassword(User user) throws RuntimeException,
+			AirlineException {
+		String password = user.getPwd();
+		user = airlineDAO.getUserDetails(user.getUsername());
+		if (ARSConstants.CUSTOMER.equals(user.getRole())) {
+			user.setPwd(password);
+			return airlineDAO.updateUser(user);
 		}
+		throw new AirlineException(ARSConstants.USERNAMENOTEXIST);
 	}
 
 	/*
@@ -196,16 +191,10 @@ public class AirlineServiceImpl implements IAirlineService {
 	@Override
 	public boolean checkAvailabiltiy(String query, String searchBasis)
 			throws RuntimeException {
-		try {
-			String isAvail = airlineDAO.checkAvailabiltiy(query, searchBasis);
-			return isAvail.isEmpty();
-		} catch (NoResultException nre) {
+		if (airlineDAO.checkAvailabiltiy(query, searchBasis).isEmpty()) {
 			return true;
-		} catch (Exception e) {
-			throw new RuntimeException(ARSConstants.ERROR
-					+ e.getMessage());
 		}
-
+		return false;
 	}
 
 	/*
@@ -242,13 +231,7 @@ public class AirlineServiceImpl implements IAirlineService {
 	 */
 	@Override
 	public String getAbbreviation(String cityName) throws RuntimeException {
-		String abbr = "";
-		try {
-			abbr = airlineDAO.getAbbreviation(cityName);
-		} catch (NoResultException nre) {
-			throw new RuntimeException(ARSConstants.CITYNOTINDATABASE);
-		}
-		return abbr;
+		return airlineDAO.getAbbreviation(cityName);
 	}
 
 }

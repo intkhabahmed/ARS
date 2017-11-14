@@ -82,7 +82,7 @@ public interface IAirlineDAO {
 	 * @return type String
 	 * @throws RuntimeException
 	 */
-	public String checkAvailabiltiy(String query, String searchBasis)
+	public List<String> checkAvailabiltiy(String query, String searchBasis)
 			throws RuntimeException;
 
 	/**

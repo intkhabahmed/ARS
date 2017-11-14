@@ -14,6 +14,9 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav navbar-left">
+			  	 <li class="active"><a href="index.html"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a></li>
+			  </ul>
 			  <ul class="nav navbar-nav navbar-right">
 			  	<c:if test="${sessionScope.user.username eq null}">
 			  		<li id="login_btn_cover"><a href="showLogin.html" class="btn btn-default">Login/Signup</a></li>
