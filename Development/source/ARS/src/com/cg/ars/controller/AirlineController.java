@@ -31,7 +31,7 @@ import com.cg.ars.utility.MyUtil;
  *
  */
 @Controller
-@SessionAttributes("user")
+@SessionAttributes(ARSConstants.USER)
 public class AirlineController {
 
 	@Autowired
@@ -138,7 +138,7 @@ public class AirlineController {
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWSIGNUP)
 	public String showSignup(Model model) {
-		model.addAttribute(ARSConstants.USEROBJ, new User());
+		model.addAttribute(ARSConstants.USER, new User());
 		return ARSConstants.SIGNUP;
 	}
 
@@ -151,10 +151,10 @@ public class AirlineController {
 	 */
 	@RequestMapping(value = ARSConstants.URLSIGNUP, method = RequestMethod.POST)
 	public String signup(Model model,
-			@Valid @ModelAttribute(ARSConstants.USEROBJ) User user,
+			@Valid @ModelAttribute(ARSConstants.USER) User user,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute(ARSConstants.USEROBJ, user);
+			model.addAttribute(ARSConstants.USER, user);
 			return ARSConstants.SIGNUP;
 		} else {
 			try {
