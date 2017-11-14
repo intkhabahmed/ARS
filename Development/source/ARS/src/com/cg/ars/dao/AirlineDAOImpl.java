@@ -257,10 +257,9 @@ public class AirlineDAOImpl implements IAirlineDAO {
 	 * returns the result to service layer
 	 */
 	@Override
-	public String checkAvailabiltiy(String query, String searchBasis)
+	public List<String> checkAvailabiltiy(String query, String searchBasis)
 			throws RuntimeException {
 		TypedQuery<String> sqlQuery = null;
-		String isAvail;
 		if (searchBasis.equals(ARSConstants.BYUSERNAME)) {
 
 			sqlQuery = entityManager.createQuery(
@@ -271,8 +270,7 @@ public class AirlineDAOImpl implements IAirlineDAO {
 					QueryMapper.CHECKEMAILISAVAILABLE, String.class);
 			sqlQuery.setParameter(ARSConstants.QUERY, query);
 		}
-		isAvail = sqlQuery.getSingleResult();
-		return isAvail;
+		return sqlQuery.getResultList();
 	}
 
 	/*

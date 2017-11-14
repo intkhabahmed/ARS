@@ -83,7 +83,7 @@
 			</div>
 			<!--end searchFormContainer-->
 			<hr>
-			<c:if test="${flights ne null}">
+			<c:if test="${flights.isEmpty() eq false}">
 				<div id="flightList">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -138,7 +138,7 @@
 				</div>
 				<!-- End FlightList -->
 			</c:if>
-			<c:if test="${flights eq null}">
+			<c:if test="${flights.isEmpty() eq true}">
 				<h3 class="jumbotron text-center"><i class="fa fa-exclamation-triangle"></i> Sorry! No Flights Found for the given query, Try again</h3>
 			</c:if>
 		</div>
