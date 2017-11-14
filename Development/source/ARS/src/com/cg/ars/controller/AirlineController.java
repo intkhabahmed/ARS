@@ -38,7 +38,7 @@ public class AirlineController {
 	@Autowired
 	IAirlineService airlineService;
 
-	@RequestMapping(value = ARSConstants.URLLISTOFFLIGHT, method = RequestMethod.POST)
+	@RequestMapping(value = ARSConstants.URLRETRIEVELISTOFFLIGHTS, method = RequestMethod.POST)
 	public String getAllFlights(
 			@ModelAttribute(ARSConstants.BOOKING) BookingInformation bookingInformation,
 			Model model) {

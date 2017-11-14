@@ -36,7 +36,7 @@
 						<div class="panel-body">
 			
 							<hr>
-							<form:form class="form-horizontal" action="listOfFlights.html"
+							<form:form class="form-horizontal" action="retrieveListOfFlights.html"
 								method="post" modelAttribute="booking">
 								<div class="row">
 									<div class="col-sm-4 col-sm-offset-1">
