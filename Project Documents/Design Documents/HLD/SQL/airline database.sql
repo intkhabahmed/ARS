@@ -66,7 +66,7 @@ Location Varchar2(40) constraint pk_airport_location Not Null
 )
 /
 
-Create table FlightInformation(
+Create table Flight(
 Flightno Varchar2(10) constraint pk_flightinfo_flightno primary key, 
 Airline Varchar2(20), 
 Dep_city Varchar2(10), 
