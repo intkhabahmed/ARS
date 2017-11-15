@@ -50,15 +50,20 @@ public class User {
 		super();
 	}
 
-	public User(String username, String password, String email,
+	
+	
+	public User(int userId, String username, String pwd, String email,
 			String mobileNo, String role) {
 		super();
+		this.userId = userId;
 		this.username = username;
-		this.pwd = password;
+		this.pwd = pwd;
 		this.email = email;
 		this.mobileNo = mobileNo;
 		this.role = role;
 	}
+
+
 
 	public String getUsername() {
 		return username;
