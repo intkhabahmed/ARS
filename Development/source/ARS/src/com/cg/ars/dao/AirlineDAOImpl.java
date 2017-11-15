@@ -137,9 +137,9 @@ public class AirlineDAOImpl implements AirlineDAO {
 	
 	/**
 	 * @description - Cancels the booking details for given booking Id
-	 * @param bookingId - booking Id for which booking is cancelled
-	 * @return BookingInformation -
-	 * @exception RuntimeException - 
+	 * @param bookingId - Booking Id for which booking is cancelled
+	 * @return BookingInformation - Booking details for which booking has been cancelled is returned
+	 * @exception RuntimeException - If no booking details are found corresponding to a booking id
 	 */
 	@Override
 	public BookingInformation cancelBooking(int bookingId)
@@ -153,10 +153,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 	}
 
 	/**
-	 * @description - retrieves total first seats, total business seats, no. of passengers in class type First and business Type
+	 * @description - Retrieves total first seats, total business seats, no. of passengers in class type First and business Type
 	 * @param flightNo - flightNo for which total first seats, total business seats, no. of passengers in class type First and business Type are calculated
-	 * @return Integer Array -
-	 * @exception RuntimeException - 
+	 * @return Integer Array - An array of total first seats, total business seats, no. of passengers in class type First and business Type
+	 * @exception RuntimeException - If a flight for a particular flight number is not available
 	 */
 	@Override
 	public int[] getFlightOccupancyDetails(String flightNo)
@@ -177,10 +177,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 	}
 
 	/**
-	 * @description - confirms the booking for given booking Object
-	 * @param booking - booking for which booking is confirmed
-	 * @return BookingInformation -
-	 * @exception RuntimeException - 
+	 * @description - Confirms the booking for given booking Object
+	 * @param booking - Booking for which booking is confirmed
+	 * @return BookingInformation - Booking object which has been inserted to the database
+	 * @exception RuntimeException - If no seats are available for a particular flight
 	 */
 	@Override
 	public BookingInformation confirmBooking(BookingInformation booking)
@@ -194,10 +194,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	/**
 	 * @description - checks the availability of user 
-	 * @return List -
-	 * @param query - Criteria on which checks the availability of user.Can be userName , userEmail
-	 * @param searchBasis -
-	 * @exception RuntimeException - 
+	 * @param query - Values of username, user mail id
+	 * @param searchBasis - Criteria on which checks the availability of user.Can be userName , userEmail
+	 * @return List - List of username or email which matches with the username or email passes as parameter
+	 * @exception RuntimeException - If username or email id does not exist
 	 */
 	@Override
 	public List<String> checkAvailabiltiy(String query, String searchBasis)
