@@ -2,12 +2,13 @@ package com.cg.ars.service;
 
 import java.util.List;
 
+import com.cg.ars.entity.Airport;
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
 import com.cg.ars.exception.AirlineException;
 
-public interface IAirlineService {
+public interface AirlineService {
 
 	/**
 	 * @param query
@@ -15,7 +16,7 @@ public interface IAirlineService {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<Flight> viewListOfFlights(String query, String searchBasis)
+	public List<Flight> retrieveFlights(String query, String searchBasis)
 			throws RuntimeException;
 
 	/**
@@ -24,7 +25,7 @@ public interface IAirlineService {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<BookingInformation> viewBookings(String query,
+	public List<BookingInformation> retrieveBookings(String query,
 			String searchBasis) throws RuntimeException;
 
 	/**
@@ -32,14 +33,14 @@ public interface IAirlineService {
 	 * @return type User
 	 * @throws RuntimeException
 	 */
-	public User signUp(User user) throws RuntimeException;
+	public User addUser(User user) throws RuntimeException;
 
 	/**
 	 * @param bookingId
 	 * @return type BookingInformation
 	 * @throws RuntimeException
 	 */
-	public BookingInformation bookingCancel(int bookingId)
+	public BookingInformation cancelBooking(int bookingId)
 			throws RuntimeException;
 
 	/**
@@ -47,23 +48,15 @@ public interface IAirlineService {
 	 * @return type User
 	 * @throws RuntimeException
 	 */
-	public User validLogin(User user) throws RuntimeException;
+	public User validateLogin(User user) throws RuntimeException;
 
 	/**
 	 * @param flightNo
 	 * @return type Integer Array
 	 * @throws RuntimeException
 	 */
-	public int[] flightOccupancyDetails(String flightNo)
+	public int[] getFlightOccupancyDetails(String flightNo)
 			throws RuntimeException;
-
-	/**
-	 * @param booking
-	 * @return type BookingInformation
-	 * @throws RuntimeException
-	 */
-	public BookingInformation modifyBookingInformation(
-			BookingInformation booking) throws RuntimeException;
 
 	/**
 	 * @param booking
@@ -89,7 +82,7 @@ public interface IAirlineService {
 	 * @throws RuntimeException
 	 * @throws AirlineException 
 	 */
-	public User forgotPassword(User user) throws RuntimeException, AirlineException;
+	public User changePassword(User user) throws RuntimeException, AirlineException;
 
 	/**
 	 * @param user
@@ -102,12 +95,5 @@ public interface IAirlineService {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<String> getCities() throws RuntimeException;
-
-	/**
-	 * @param cityName
-	 * @return Type String
-	 * @throws RuntimeException
-	 */
-	public String getAbbreviation(String cityName) throws RuntimeException;
+	public List<Airport> getAirportDetails() throws RuntimeException;
 }

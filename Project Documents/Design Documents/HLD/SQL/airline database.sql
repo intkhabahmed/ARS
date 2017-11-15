@@ -295,8 +295,3 @@ insert into airport values(5,'NETAJI SUBHAS CHANDRA AIRPORT','CCU','KOLKATA')
 /
 insert into airport values(6,'BENGALURU IINTERNATIONAL AIRPORT','BLR','BANGALORE')
 /
-
-Insert into users values(1,'Executive','executive@myairlines.com','executive','Executive',9876543210)
-/
-Insert into users values(2,'Admin','admin@myairlines.com','admin','Admin',9876543210)
-/

@@ -34,14 +34,8 @@
 							<div class="panel-body">
 
 								<hr>
-								 <c:if test="${booking.flightNo eq null }">
-									<c:set var="action" value="login.html"></c:set>
-								</c:if>
-								<c:if test="${booking.flightNo ne null }">
-									<c:set var="action" value="loginAfterSearch.html"></c:set>
 									<c:set var="bookingInfo" value="${booking}" scope="session"> </c:set>
-								</c:if>
-								<form:form class="form-horizontal" action="${action}" method="post" modelAttribute="user">
+								<form:form class="form-horizontal" action="login.html" method="post" modelAttribute="user">
 									<div class="form-group">
 										<form:label path="username">Username:</form:label>
 										<form:input type="text" class="form-control" path="username" required="required"

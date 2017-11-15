@@ -2,6 +2,7 @@ package com.cg.ars.dao;
 
 import java.util.List;
 
+import com.cg.ars.entity.Airport;
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
@@ -10,7 +11,7 @@ import com.cg.ars.entity.User;
  * @author inahmed
  *
  */
-public interface IAirlineDAO {
+public interface AirlineDAO {
 
 	/**
 	 * @param query
@@ -18,7 +19,7 @@ public interface IAirlineDAO {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<Flight> viewListOfFlights(String query, String searchBasis)
+	public List<Flight> retrieveFlights(String query, String searchBasis)
 			throws RuntimeException;
 
 	/**
@@ -27,7 +28,7 @@ public interface IAirlineDAO {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<BookingInformation> viewBookings(String query,
+	public List<BookingInformation> retrieveBookings(String query,
 			String searchBasis) throws RuntimeException;
 
 	/**
@@ -35,21 +36,21 @@ public interface IAirlineDAO {
 	 * @return type User
 	 * @throws RuntimeException
 	 */
-	public User signUp(User user) throws RuntimeException;
+	public User addUser(User user) throws RuntimeException;
 
 	/**
 	 * @param user
 	 * @return type User
 	 * @throws RuntimeException
 	 */
-	public User validLogin(User user) throws RuntimeException;
+	public User validateLogin(User user) throws RuntimeException;
 
 	/**
 	 * @param bookingId
 	 * @return type BookingInformation
 	 * @throws RuntimeException
 	 */
-	public BookingInformation bookingCancel(int bookingId)
+	public BookingInformation cancelBooking(int bookingId)
 			throws RuntimeException;
 
 	/**
@@ -57,16 +58,8 @@ public interface IAirlineDAO {
 	 * @return type Integer Array
 	 * @throws RuntimeException
 	 */
-	public int[] flightOccupancyDetails(String flightNo)
+	public int[] getFlightOccupancyDetails(String flightNo)
 			throws RuntimeException;
-
-	/**
-	 * @param booking
-	 * @return type BookingInformation
-	 * @throws RuntimeException
-	 */
-	public BookingInformation modifyBookingInformation(
-			BookingInformation booking) throws RuntimeException;
 
 	/**
 	 * @param booking
@@ -111,13 +104,5 @@ public interface IAirlineDAO {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<String> getCities() throws RuntimeException;
-
-	/**
-	 * @param cityName
-	 * @return type String
-	 * @throws RuntimeException
-	 */
-	public String getAbbreviation(String cityName) throws RuntimeException;
-
+	public List<Airport> getAirportDetails() throws RuntimeException;
 }

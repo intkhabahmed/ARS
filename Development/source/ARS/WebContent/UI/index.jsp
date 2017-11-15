@@ -42,10 +42,12 @@
 									<div class="col-sm-4 col-sm-offset-1">
 										<div class="form-group">
 											<form:label path="srcCity">Source City</form:label>
-											<form:select class="form-control" path="srcCity" required="required">
-												<form:option value="">--Select--</form:option>
-												<form:options items="${airport}"/>
-											</form:select>
+											<form:input path="srcCity" list="airports" class="form-control" required="required"/>
+											<datalist id="airports">
+												<c:forEach items="${airports}" var="airport">
+													<option value="${airport.abbreviation}">${airport.location} ( ${airport.abbreviation} )</option>
+												</c:forEach>
+											</datalist>
 											<form:errors path="srcCity"></form:errors><br>
 										</div>
 									</div>
@@ -56,10 +58,12 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<form:label path="destCity">Destination City</form:label>
-											<form:select class="form-control" path="destCity" required="required">
-												<form:option value="">--Select--</form:option>
-												<form:options items="${airport}"/>
-											</form:select>
+											<form:input path="destCity" list="airports" class="form-control" required="required"/>
+											<datalist id="airports">
+												<c:forEach items="${airports}" var="airport">
+													<option value="${airport.abbreviation}">${airport.location} ( ${airport.abbreviation} )</option>
+												</c:forEach>
+											</datalist>
 											<form:errors path="destCity"></form:errors><br>
 										</div>
 									</div>
