@@ -494,6 +494,10 @@ public class AirlineController {
 					+ airlineException.getMessage());
 			model.addAttribute(ARSConstants.USEROBJ, new User());
 			returnPage = ARSConstants.FORGOTPWD;
+		} catch (NoResultException noResultException) {
+			model.addAttribute(ARSConstants.MESSAGE,
+					ARSConstants.USERNAMENOTEXIST);
+			return showForgotPasswordPage(model);
 		} catch (RuntimeException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					runtimeException.getMessage());

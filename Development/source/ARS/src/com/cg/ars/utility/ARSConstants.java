@@ -54,7 +54,7 @@ public interface ARSConstants {
 	String MESSAGE = "message";
 	String BOOKINGSUCCESS = "bookingSuccess";
 	String USERPROFILE = "userProfile";
-	String USERNAMENOTEXIST = "Username does not exist";
+	String USERNAMENOTEXIST = "Username does not exist, Please signup";
 	String CITYNOTINDATABASE = "Entered City does not exist in database";
 	String USERNAME = "username";
 	String QUERY = "query";

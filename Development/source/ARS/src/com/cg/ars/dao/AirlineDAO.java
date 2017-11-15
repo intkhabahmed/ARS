@@ -96,7 +96,7 @@ public interface AirlineDAO {
 	public void updateFlight(Flight flight) throws RuntimeException;
 	
 	/**
-	 * @param username 
+	 * @param username
 	 * @return User
 	 * @throws RuntimeException
 	 */

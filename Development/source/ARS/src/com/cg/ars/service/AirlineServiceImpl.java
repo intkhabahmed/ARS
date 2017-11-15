@@ -189,9 +189,8 @@ public class AirlineServiceImpl implements AirlineService {
 		user = airlineDAO.getUserDetails(user.getUsername());
 		if (ARSConstants.CUSTOMER.equals(user.getRole())) {
 			user.setPwd(password);
-			return airlineDAO.updateUser(user);
 		}
-		throw new AirlineException(ARSConstants.USERNAMENOTEXIST);
+		return airlineDAO.updateUser(user);
 	}
 
 	/**
