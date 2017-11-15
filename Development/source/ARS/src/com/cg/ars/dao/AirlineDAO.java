@@ -8,6 +8,8 @@ import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
 
 /**
+ * @description Data Access Object Interface containing all functions associated
+ *              with the corresponding actor
  * @author inahmed
  *
  */
@@ -55,7 +57,7 @@ public interface AirlineDAO {
 
 	/**
 	 * @param flightNo
-	 * @return Integer Array
+	 * @return Array
 	 * @throws RuntimeException
 	 */
 	public int[] getFlightOccupancyDetails(String flightNo)
@@ -72,7 +74,7 @@ public interface AirlineDAO {
 	/**
 	 * @param query
 	 * @param searchBasis
-	 * @return String
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<String> checkAvailabiltiy(String query, String searchBasis)

@@ -27,12 +27,15 @@ import com.cg.ars.utility.ARSConstants;
 import com.cg.ars.utility.MyUtil;
 
 /**
+ * @description AirlineController handles all requests coming from the client
+ *              and returns appropriate response back to the client
  * @author inahmed
  *
  */
 @Controller
 @SessionAttributes(ARSConstants.USER)
 public class AirlineController {
+
 	/**
 	 * injecting the airlineService class object
 	 */
@@ -40,9 +43,12 @@ public class AirlineController {
 	AirlineService airlineService;
 
 	/**
-	 *@description - Retrieves list of flights from database
-	 *@param bookingInformation - Booking Information details are collected from form and passed as parameter
-	 *@param model - Model
+	 * @description - Retrieves list of flights from database
+	 * @param bookingInformation
+	 *            - Booking Information details are collected from form and
+	 *            passed as parameter
+	 * @param model
+	 *            - Model Interface
 	 */
 	@RequestMapping(value = ARSConstants.URLRETRIEVELISTOFFLIGHTS, method = RequestMethod.POST)
 	public String retrieveFlights(
@@ -78,9 +84,11 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description - Shows home page 
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @description - Shows home page
+	 * @param model
+	 *            - Model
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLINDEX)
 	public String showHomePage(Model model, HttpSession session) {
@@ -94,7 +102,6 @@ public class AirlineController {
 			model.addAttribute(ARSConstants.BOOKING, new BookingInformation());
 			model.addAttribute(ARSConstants.CLASSTYPEOPTION, new String[] {
 					ARSConstants.FIRST, ARSConstants.BUSINESS });
-
 			model.addAttribute(ARSConstants.AIRPORTS,
 					airlineService.getAirportDetails());
 			model.addAttribute(ARSConstants.DATE, Date.valueOf(LocalDate.now()));
@@ -108,7 +115,8 @@ public class AirlineController {
 
 	/**
 	 * @description - Shows login Page
-	 * @param model - Model
+	 * @param model
+	 *            - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWLOGIN)
 	public String showLoginPage(Model model) {
@@ -118,9 +126,12 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description Shows the login page after searching a flight 
-	 * @param model - Model
-	 * @param bookingInformation - Booking Information details are collected from form and passed as parameter
+	 * @description Shows the login page after searching a flight
+	 * @param model
+	 *            - Model
+	 * @param bookingInformation
+	 *            - Booking Information details are collected from form and
+	 *            passed as parameter
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWLOGINAFTERSEARCH, method = RequestMethod.POST)
 	public String showLoginPageAfterSearch(
@@ -133,7 +144,8 @@ public class AirlineController {
 
 	/**
 	 * @description - shows signUp page
-	 * @param model - Model
+	 * @param model
+	 *            - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWSIGNUP)
 	public String showSignupPage(Model model) {
@@ -143,8 +155,15 @@ public class AirlineController {
 
 	/**
 	 * @description - Adds a new user to the database
-	 * @param model - Model
-	 * @param user - User object from form is passed
+	 * @param model
+	 *            - Model
+	 * @param user
+	 *            - User object from form is passed
+	 * @param bindingResult
+	 *            - BindingResult
+	 * @param session
+	 *            - HttpSession
+	 * @return
 	 */
 	@RequestMapping(value = ARSConstants.URLSIGNUP, method = RequestMethod.POST)
 	public String addUser(Model model,
@@ -188,9 +207,13 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description -Terminates the session 
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @description -Terminates the user session
+	 * @param model
+	 *            - Model
+	 * @param status
+	 *            - SessionStatus
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLLOGOUT)
 	public String logout(Model model, SessionStatus status, HttpSession session) {
@@ -202,9 +225,12 @@ public class AirlineController {
 	/**
 	 * @description - Validates the login details after and before searching the
 	 *              flight
-	 * @param user - User details for whom validation is to be carried out
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @param user
+	 *            - User details to carry out validation
+	 * @param model
+	 *            - Model
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLLOGIN)
 	public String validateLogin(@ModelAttribute(ARSConstants.USER) User user,
@@ -222,7 +248,6 @@ public class AirlineController {
 				}
 				return showHomePage(model, session);
 			}
-
 		} catch (NoResultException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					ARSConstants.INVALIDUSERNAMEPWD);
@@ -238,10 +263,14 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description - Books the flight 
-	 * @param bookingInformation - Booking Information details are collected from form and passed as parameter
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @description - Books the flight
+	 * @param bookingInformation
+	 *            - Booking Information details are collected from form and
+	 *            passed as parameter
+	 * @param model
+	 *            - Model
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWBOOKING, method = RequestMethod.POST)
 	public String bookFlight(
@@ -268,12 +297,14 @@ public class AirlineController {
 			model.addAttribute(ARSConstants.FLIGHT, flight);
 			model.addAttribute(ARSConstants.BOOKING, bookingInformation);
 			model.addAttribute(ARSConstants.USER, user);
-			airlineService.checkFlightOccupancyDetails(flight.getFlightNo(), bookingInformation.getClassType(),bookingInformation.getNoOfPassengers());
+			airlineService.checkFlightOccupancyDetails(flight.getFlightNo(),
+					bookingInformation.getClassType(),
+					bookingInformation.getNoOfPassengers());
 		} catch (AirlineException airlineException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					airlineException.getMessage());
 			model.addAttribute(ARSConstants.BOOKING, bookingInformation);
-			return retrieveFlights(bookingInformation,model);
+			return retrieveFlights(bookingInformation, model);
 		} catch (RuntimeException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					runtimeException.getMessage());
@@ -284,8 +315,11 @@ public class AirlineController {
 
 	/**
 	 * @description - confirms the booking for given booking Object
-	 * @param bookingInformation - Booking Information details are collected from form and passed as parameter
-	 * @param model - Model
+	 * @param bookingInformation
+	 *            - Booking Information details are collected from form and
+	 *            passed as parameter
+	 * @param model
+	 *            - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLCONFIRMBOOKING, method = RequestMethod.POST)
 	public String confirmBooking(
@@ -309,8 +343,12 @@ public class AirlineController {
 
 	/**
 	 * @description - Updates the user details
-	 * @param user - User details for whom updation is to be carried out
-	 * @param model - Model
+	 * @param user
+	 *            - User details which is to be updated
+	 * @param model
+	 *            - Model
+	 * @param bindingResult
+	 *            - BindingResult
 	 */
 	@RequestMapping(value = ARSConstants.URLUPDATEUSER, method = RequestMethod.POST)
 	public String updateUser(
@@ -320,7 +358,6 @@ public class AirlineController {
 			model.addAttribute(ARSConstants.BOOKINGS, airlineService
 					.retrieveBookings(user.getUsername(), ARSConstants.BYROUTE));
 			if (bindingResult.hasErrors()) {
-
 				model.addAttribute(ARSConstants.USEROBJ, user);
 				return ARSConstants.USERPROFILE;
 			}
@@ -335,13 +372,14 @@ public class AirlineController {
 					+ runtimeException.getMessage());
 			return ARSConstants.ERRORPAGE;
 		}
-
 	}
 
 	/**
 	 * @description - Shows user profile
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @param model
+	 *            - Model
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWPROFILE)
 	public String showUserProfile(Model model, HttpSession session) {
@@ -359,10 +397,13 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description - Cancels the booking details for given booking Id
-	 * @param bookingId - booking Id for which booking is cancelled
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @description - Cancels the Flight booking for given booking Id
+	 * @param bookingId
+	 *            - booking Id of flight booking which is to be cancelled
+	 * @param model
+	 *            - Model
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLCANCELBOOKING, method = RequestMethod.GET)
 	public String cancelBooking(
@@ -370,7 +411,6 @@ public class AirlineController {
 			HttpSession session) {
 		User user = (User) session.getAttribute(ARSConstants.USER);
 		model.addAttribute(ARSConstants.USEROBJ, user);
-
 		try {
 			BookingInformation booking = airlineService
 					.cancelBooking(bookingId);
@@ -388,9 +428,12 @@ public class AirlineController {
 
 	/**
 	 * @description - Shows the booking details according to given booking Id
-	 * @param bookingId - bookingId for which shows the booking Details
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @param bookingId
+	 *            - bookingId of the flight booking done by the user
+	 * @param model
+	 *            - Model
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLVIEWBOOKING, method = RequestMethod.GET)
 	public String viewBooking(
@@ -410,20 +453,24 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description - Allows a user to change ones password
-	 * @param model - Model
+	 * @description - shows the forgotPassword page
+	 * @param model
+	 *            - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWFORGOTPWD)
-	public String showForgotPassword(Model model) {
+	public String showForgotPasswordPage(Model model) {
 		model.addAttribute(ARSConstants.USEROBJ, new User());
 		return ARSConstants.FORGOTPWD;
 	}
 
 	/**
 	 * @description Changes the password of the user
-	 * @param user - User details for whom password has to be changed
-	 * @param model - Model
-	 * @param session - HttpSession
+	 * @param user
+	 *            - User details whose password has to be changed
+	 * @param model
+	 *            - Model
+	 * @param session
+	 *            - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLFORGOTPWD, method = RequestMethod.POST)
 	public String changePassword(

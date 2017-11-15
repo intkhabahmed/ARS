@@ -53,8 +53,8 @@ public class Flight {
 
 	public Flight() {
 		super();
-	}	
-	
+	}
+
 	public Flight(String flightNo, String flightName, String deptCity,
 			String arrCity, Date deptDate, Date arrDate, String deptTime,
 			String arrTime, int firstSeats, double firstSeatsFare,
@@ -74,8 +74,6 @@ public class Flight {
 		this.bussSeatsFare = bussSeatsFare;
 		this.duration = duration;
 	}
-
-
 
 	public String getFlightNo() {
 		return flightNo;

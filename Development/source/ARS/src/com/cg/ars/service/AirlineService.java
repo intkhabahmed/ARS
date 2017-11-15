@@ -8,6 +8,10 @@ import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
 import com.cg.ars.exception.AirlineException;
 
+/**
+ * @author INTKHAB
+ *
+ */
 public interface AirlineService {
 
 	/**
@@ -52,11 +56,13 @@ public interface AirlineService {
 
 	/**
 	 * @param flightNo
+	 * @param classType
+	 * @param noOfPassengers
 	 * @return Integer Array
 	 * @throws RuntimeException
 	 */
 	public void checkFlightOccupancyDetails(String flightNo, String classType,
-			int noOfPassengers) throws RuntimeException,AirlineException;
+			int noOfPassengers) throws RuntimeException, AirlineException;
 
 	/**
 	 * @param booking

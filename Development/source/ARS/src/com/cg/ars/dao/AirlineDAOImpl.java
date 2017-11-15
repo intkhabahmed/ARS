@@ -18,6 +18,8 @@ import com.cg.ars.utility.ARSConstants;
 import com.cg.ars.utility.QueryMapper;
 
 /**
+ * @description Data Access Object Interface Implementation containing all
+ *              functions associated with the corresponding actor
  * @author prasrani
  *
  */
@@ -30,13 +32,17 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	private static Logger logger = Logger
 			.getLogger(com.cg.ars.dao.AirlineDAOImpl.class);
-	
+
 	/**
 	 * @description - Retrieves list of flights from database
-	 * @param searchBasis - Criteria on which list of flights is returned. Can be by source, destination and date
-	 * @param query - Values of (source, destination and date) passed
+	 * @param searchBasis
+	 *            - Criteria on which list of flights is returned. Can be by
+	 *            source, destination and date
+	 * @param query
+	 *            - Values of (source, destination and date) passed
 	 * @return List - List of flights based on searchBasis is returned
-	 * @exception RuntimeException - If no flight is present in the database
+	 * @exception RuntimeException
+	 *                - If no flight is present in the database
 	 */
 	@Override
 	public List<Flight> retrieveFlights(String query, String searchBasis)
@@ -65,17 +71,19 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	/**
 	 * @description - Retrieves a list of bookings based on search basis
-	 * @param searchBasis - Criteria on which list of bookings is returned. Can be by flight number, username and booking id
-	 * @param query - Values of username, flight number or booking id is passed
+	 * @param searchBasis
+	 *            - Criteria on which list of bookings is returned. Can be by
+	 *            flight number, user name and booking id
+	 * @param query
+	 *            - Values of user name, flight number or booking id is passed
 	 * @return List - List of bookings based on searchBasis is returned
-	 * @exception RuntimeException - If no booking details is present in the database
+	 * @exception RuntimeException
+	 *                - If no booking details is present in the database
 	 */
 	@Override
 	public List<BookingInformation> retrieveBookings(String query,
 			String searchBasis) throws RuntimeException {
-
 		TypedQuery<BookingInformation> sqlQuery = null;
-
 		if (searchBasis.equals(ARSConstants.BYFLIGHT)) {
 			sqlQuery = entityManager.createQuery(
 					QueryMapper.BOOKINGINFORMATIONOFAFLIGHT,
@@ -97,17 +105,17 @@ public class AirlineDAOImpl implements AirlineDAO {
 			sqlQuery.setParameter(ARSConstants.BOOKINGID,
 					Integer.parseInt(query));
 		}
-
 		logger.info("List of Bookings retrieved");
 		return sqlQuery.getResultList();
-
 	}
 
 	/**
 	 * @description - Validates user credentials
-	 * @param user - User for whom credentials are validated
+	 * @param user
+	 *            - User for whom credentials are validated
 	 * @return user - User is returned if found
-	 * @exception RuntimeException - If no flight is present in the database
+	 * @exception RuntimeException
+	 *                - If no flight is present in the database
 	 */
 	@Override
 	public User validateLogin(User user) throws RuntimeException {
@@ -117,14 +125,15 @@ public class AirlineDAOImpl implements AirlineDAO {
 		sqlQuery.setParameter(ARSConstants.PASS, user.getPwd());
 		logger.info("Following User Logged in:" + user.getUsername());
 		return sqlQuery.getSingleResult();
-
 	}
 
 	/**
 	 * @description - Inserts a new user in the database
-	 * @param user - User who is to be inserted in the database
+	 * @param user
+	 *            - User who is to be inserted in the database
 	 * @return user - User who is inserted in the database
-	 * @exception RuntimeException - If user is already present in the database
+	 * @exception RuntimeException
+	 *                - If user is already present in the database
 	 */
 	@Override
 	public User addUser(User user) throws RuntimeException {
@@ -134,12 +143,16 @@ public class AirlineDAOImpl implements AirlineDAO {
 				+ user.getUsername());
 		return user;
 	}
-	
+
 	/**
 	 * @description - Cancels the booking details for given booking Id
-	 * @param bookingId - Booking Id for which booking is cancelled
-	 * @return BookingInformation - Booking details for which booking has been cancelled is returned
-	 * @exception RuntimeException - If no booking details are found corresponding to a booking id
+	 * @param bookingId
+	 *            - Booking Id for which booking is cancelled
+	 * @return BookingInformation - Booking details for which booking has been
+	 *         cancelled is returned
+	 * @exception RuntimeException
+	 *                - If no booking details are found corresponding to a
+	 *                booking id
 	 */
 	@Override
 	public BookingInformation cancelBooking(int bookingId)
@@ -153,10 +166,17 @@ public class AirlineDAOImpl implements AirlineDAO {
 	}
 
 	/**
-	 * @description - Retrieves total first seats, total business seats, no. of passengers in class type First and business Type
-	 * @param flightNo - flightNo for which total first seats, total business seats, no. of passengers in class type First and business Type are calculated
-	 * @return Integer Array - An array of total first seats, total business seats, no. of passengers in class type First and business Type
-	 * @exception RuntimeException - If a flight for a particular flight number is not available
+	 * @description - Retrieves total first seats, total business seats, no. of
+	 *              passengers in class type First and business Type
+	 * @param flightNo
+	 *            - flightNo for which total first seats, total business seats,
+	 *            no. of passengers in class type First and business Type are
+	 *            calculated
+	 * @return Integer Array - An array of available first seats and business
+	 *         seats
+	 * @exception RuntimeException
+	 *                - If a flight for a particular flight number is not
+	 *                available
 	 */
 	@Override
 	public int[] getFlightOccupancyDetails(String flightNo)
@@ -178,9 +198,12 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	/**
 	 * @description - Confirms the booking for given booking Object
-	 * @param booking - Booking for which booking is confirmed
-	 * @return BookingInformation - Booking object which has been inserted to the database
-	 * @exception RuntimeException - If no seats are available for a particular flight
+	 * @param booking
+	 *            - Booking for which booking is confirmed
+	 * @return BookingInformation - Booking object which has been inserted to
+	 *         the database
+	 * @exception RuntimeException
+	 *                - If no seats are available for a particular flight
 	 */
 	@Override
 	public BookingInformation confirmBooking(BookingInformation booking)
@@ -193,11 +216,16 @@ public class AirlineDAOImpl implements AirlineDAO {
 	}
 
 	/**
-	 * @description - checks the availability of user 
-	 * @param query - Values of username, user mail id
-	 * @param searchBasis - Criteria on which checks the availability of user.Can be userName , userEmail
-	 * @return List - List of username or email which matches with the username or email passes as parameter
-	 * @exception RuntimeException - If username or email id does not exist
+	 * @description - checks the availability of user
+	 * @param query
+	 *            - Values of username, user mail id
+	 * @param searchBasis
+	 *            - Criteria on which checks the availability of user.Can be
+	 *            userName , userEmail
+	 * @return List - List of username or email which matches with the username
+	 *         or email passes as parameter
+	 * @exception RuntimeException
+	 *                - If username or email id does not exist
 	 */
 	@Override
 	public List<String> checkAvailabiltiy(String query, String searchBasis)
@@ -217,8 +245,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	/**
 	 * @description - Modifies the details of a user
-	 * @param User -  User details are modified for this user
-	 * @exception RuntimeException - When user is not found
+	 * @param User
+	 *            - User details are modified for this user
+	 * @exception RuntimeException
+	 *                - When user is not found
 	 */
 	@Override
 	public User updateUser(User user) throws RuntimeException {
@@ -229,8 +259,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	/**
 	 * @description - Returns the details of a user
-	 * @param flight -  User details are fetched for this username
-	 * @exception RuntimeException - When user is not found
+	 * @param flight
+	 *            - User details are fetched for this username
+	 * @exception RuntimeException
+	 *                - When user is not found
 	 */
 	@Override
 	public void updateFlight(Flight flight) throws RuntimeException {
@@ -240,9 +272,11 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	/**
 	 * @description - Returns the details of a user
-	 * @param username -  User details are fetched for this username
-	 * @return User - Fetched  user details from the database is returned 
-	 * @exception RuntimeException - When user is not found
+	 * @param username
+	 *            - User details are fetched for this username
+	 * @return User - Fetched user details from the database is returned
+	 * @exception RuntimeException
+	 *                - When user is not found
 	 */
 	@Override
 	public User getUserDetails(String username) throws RuntimeException {
@@ -255,7 +289,8 @@ public class AirlineDAOImpl implements AirlineDAO {
 	/**
 	 * @description - Returns the list of airport from the database
 	 * @return List - A list of airports in the database is returned
-	 * @exception RuntimeException - When airport detail is not found
+	 * @exception RuntimeException
+	 *                - When airport detail is not found
 	 */
 	@Override
 	public List<Airport> getAirportDetails() throws RuntimeException {
@@ -263,5 +298,4 @@ public class AirlineDAOImpl implements AirlineDAO {
 				QueryMapper.GETAIRPORTDETAILS, Airport.class);
 		return query.getResultList();
 	}
-
 }

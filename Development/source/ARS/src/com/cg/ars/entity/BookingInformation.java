@@ -69,7 +69,7 @@ public class BookingInformation {
 	public BookingInformation() {
 		super();
 	}
-	
+
 	public BookingInformation(int bookingId, String userEmail,
 			int noOfPassengers, String classType, double totalFare,
 			String creditCardInfo, String srcCity, String destCity,
@@ -87,8 +87,6 @@ public class BookingInformation {
 		this.bookingDate = bookingDate;
 		this.travelDate = travelDate;
 	}
-
-
 
 	public int getBookingId() {
 		return bookingId;

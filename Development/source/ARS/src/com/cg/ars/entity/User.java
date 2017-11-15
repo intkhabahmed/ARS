@@ -50,8 +50,6 @@ public class User {
 		super();
 	}
 
-	
-	
 	public User(int userId, String username, String pwd, String email,
 			String mobileNo, String role) {
 		super();
@@ -62,8 +60,6 @@ public class User {
 		this.mobileNo = mobileNo;
 		this.role = role;
 	}
-
-
 
 	public String getUsername() {
 		return username;
@@ -112,5 +108,4 @@ public class User {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
 }
