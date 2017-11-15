@@ -96,7 +96,7 @@ public class AirlineServiceImpl implements AirlineService {
 					+ booking.getNoOfPassengers());
 		} else if (ARSConstants.BUSINESS.equalsIgnoreCase(booking
 				.getClassType())) {
-			flight.setFirstSeats(flight.getBussSeats()
+			flight.setBussSeats(flight.getBussSeats()
 					+ booking.getNoOfPassengers());
 		}
 		airlineDAO.updateFlight(flight);
@@ -112,9 +112,20 @@ public class AirlineServiceImpl implements AirlineService {
 	 * AirlineDaoImpl and returns the result to AirlineController
 	 */
 	@Override
-	public int[] getFlightOccupancyDetails(String flightNo)
-			throws RuntimeException {
-		return airlineDAO.getFlightOccupancyDetails(flightNo);
+	public void checkFlightOccupancyDetails(String flightNo, String classType,
+			int noOfPassengers) throws RuntimeException, AirlineException {
+		int[] seats = airlineDAO.getFlightOccupancyDetails(flightNo);
+		if ("First".equalsIgnoreCase(classType)) {
+			if (seats[0] - noOfPassengers < 0) {
+				throw new AirlineException(
+						ARSConstants.NOTENOUGHFIRSTSEATS);
+			}
+		}else{
+			if (seats[1] - noOfPassengers < 0) {
+				throw new AirlineException(
+						ARSConstants.NOTENOUGHBUSINESSSEATS);
+			}
+		}
 	}
 
 	/*
@@ -138,7 +149,7 @@ public class AirlineServiceImpl implements AirlineService {
 					- booking.getNoOfPassengers());
 		} else if (ARSConstants.BUSINESS.equalsIgnoreCase(booking
 				.getClassType())) {
-			flight.setFirstSeats(flight.getBussSeats()
+			flight.setBussSeats(flight.getBussSeats()
 					- booking.getNoOfPassengers());
 		}
 		airlineDAO.updateFlight(flight);

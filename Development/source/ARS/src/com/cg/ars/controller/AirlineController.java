@@ -2,7 +2,6 @@ package com.cg.ars.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
@@ -55,9 +54,8 @@ public class AirlineController {
 					+ bookingInformation.getDestCity() + "="
 					+ bookingInformation.getTravelDate();
 			model.addAttribute(ARSConstants.FLIGHTS,
-					airlineService.retrieveFlights(str, ARSConstants.BYUSER));
+					airlineService.retrieveFlights(str, ARSConstants.BYROUTE));
 			model.addAttribute(ARSConstants.BOOKING, bookingInformation);
-
 			model.addAttribute(ARSConstants.CLASSTYPEOPTION, new String[] {
 					ARSConstants.FIRST, ARSConstants.BUSINESS });
 			model.addAttribute(ARSConstants.AIRPORTS,
@@ -262,24 +260,31 @@ public class AirlineController {
 			Model model, HttpSession session) {
 		User user = (User) session.getAttribute(ARSConstants.USER);
 		try {
-			List<Flight> flights = airlineService.retrieveFlights(
-					bookingInformation.getFlightNo(), ARSConstants.FLIGHTNO);
+			Flight flight = airlineService.retrieveFlights(
+					bookingInformation.getFlightNo(), ARSConstants.FLIGHTNO)
+					.get(0);
 			if (ARSConstants.FIRST.equalsIgnoreCase(bookingInformation
 					.getClassType())) {
 				bookingInformation.setTotalFare(MyUtil.calculatefare(
-						bookingInformation.getNoOfPassengers(), flights.get(0)
-								.getFirstSeatsFare()));
+						bookingInformation.getNoOfPassengers(),
+						flight.getFirstSeatsFare()));
 			} else if (ARSConstants.BUSINESS
 					.equalsIgnoreCase(bookingInformation.getClassType())) {
 				bookingInformation.setTotalFare(MyUtil.calculatefare(
-						bookingInformation.getNoOfPassengers(), flights.get(0)
-								.getBussSeatsFare()));
+						bookingInformation.getNoOfPassengers(),
+						flight.getBussSeatsFare()));
 			}
 			bookingInformation.setUserEmail(user.getEmail());
 			bookingInformation.setBookingDate(Date.valueOf(LocalDate.now()));
-			model.addAttribute(ARSConstants.FLIGHT, flights.get(0));
+			model.addAttribute(ARSConstants.FLIGHT, flight);
 			model.addAttribute(ARSConstants.BOOKING, bookingInformation);
 			model.addAttribute(ARSConstants.USER, user);
+			airlineService.checkFlightOccupancyDetails(flight.getFlightNo(), bookingInformation.getClassType(),bookingInformation.getNoOfPassengers());
+		} catch (AirlineException airlineException) {
+			model.addAttribute(ARSConstants.MESSAGE,
+					airlineException.getMessage());
+			model.addAttribute(ARSConstants.BOOKING, bookingInformation);
+			return retrieveFlights(bookingInformation,model);
 		} catch (RuntimeException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					runtimeException.getMessage());
@@ -313,7 +318,6 @@ public class AirlineController {
 					runtimeException.getMessage());
 			return ARSConstants.ERRORPAGE;
 		}
-
 	}
 
 	/**
@@ -329,7 +333,7 @@ public class AirlineController {
 			BindingResult bindingResult, Model model) {
 		try {
 			model.addAttribute(ARSConstants.BOOKINGS, airlineService
-					.retrieveBookings(user.getUsername(), ARSConstants.BYUSER));
+					.retrieveBookings(user.getUsername(), ARSConstants.BYROUTE));
 			if (bindingResult.hasErrors()) {
 
 				model.addAttribute(ARSConstants.USEROBJ, user);
@@ -361,7 +365,7 @@ public class AirlineController {
 		model.addAttribute(ARSConstants.USEROBJ, user);
 		try {
 			model.addAttribute(ARSConstants.BOOKINGS, airlineService
-					.retrieveBookings(user.getUsername(), ARSConstants.BYUSER));
+					.retrieveBookings(user.getUsername(), ARSConstants.BYROUTE));
 			return ARSConstants.USERPROFILE;
 		} catch (RuntimeException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
@@ -388,7 +392,7 @@ public class AirlineController {
 			BookingInformation booking = airlineService
 					.cancelBooking(bookingId);
 			model.addAttribute(ARSConstants.BOOKINGS, airlineService
-					.retrieveBookings(user.getUsername(), ARSConstants.BYUSER));
+					.retrieveBookings(user.getUsername(), ARSConstants.BYROUTE));
 			model.addAttribute(ARSConstants.MESSAGE, ARSConstants.TICKETCANCEL
 					+ booking.getBookingId());
 			return ARSConstants.USERPROFILE;

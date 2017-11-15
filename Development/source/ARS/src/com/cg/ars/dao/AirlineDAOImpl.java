@@ -42,29 +42,14 @@ public class AirlineDAOImpl implements AirlineDAO {
 	public List<Flight> retrieveFlights(String query, String searchBasis)
 			throws RuntimeException {
 		TypedQuery<Flight> sqlQuery = null;
-		if (searchBasis.equals("dest")) {
-			sqlQuery = entityManager.createQuery(
-					QueryMapper.SEARCHFLIGHTBYARRIVALCITY, Flight.class);
-			sqlQuery.setParameter(ARSConstants.ARRCITY, query);
-		} else if (searchBasis.equals("day")) {
-			sqlQuery = entityManager.createQuery(
-					QueryMapper.SEARCHFLIGHTBYDEPARTUREDATE, Flight.class);
-			sqlQuery.setParameter(ARSConstants.DEPDATE, Date.valueOf(query));
-		} else if (searchBasis.equals("route")) {
-			String[] route = query.split("=");
-			sqlQuery = entityManager.createQuery(
-					QueryMapper.SEARCHFLIGHTBYDEPARTUREANDARRIVALCITY,
-					Flight.class);
-			sqlQuery.setParameter(ARSConstants.DEPCITY, route[0]);
-			sqlQuery.setParameter(ARSConstants.ARRCITY, route[1]);
-		} else if (searchBasis.equals(ARSConstants.FLIGHTNO)) {
+		if (searchBasis.equals(ARSConstants.FLIGHTNO)) {
 			sqlQuery = entityManager.createQuery(
 					QueryMapper.SEARCHFLIGHTBYFLIGHTNUMBER, Flight.class);
 			sqlQuery.setParameter(ARSConstants.FLIGHTNO, query);
 		} else if (searchBasis.equals("all")) {
 			sqlQuery = entityManager.createQuery(QueryMapper.FLIGHTINFORMATION,
 					Flight.class);
-		} else if (searchBasis.equals(ARSConstants.BYUSER)) {
+		} else if (searchBasis.equals(ARSConstants.BYROUTE)) {
 			String[] route = query.split("=");
 			sqlQuery = entityManager
 					.createQuery(
@@ -96,7 +81,7 @@ public class AirlineDAOImpl implements AirlineDAO {
 					QueryMapper.BOOKINGINFORMATIONOFAFLIGHT,
 					BookingInformation.class);
 			sqlQuery.setParameter(ARSConstants.FLIGHTNO, query);
-		} else if (searchBasis.equals(ARSConstants.BYUSER)) {
+		} else if (searchBasis.equals(ARSConstants.BYROUTE)) {
 			TypedQuery<User> userQuery = entityManager.createQuery(
 					QueryMapper.USERINFORMATION, User.class);
 			userQuery.setParameter(ARSConstants.USERNAME, query);
@@ -186,14 +171,6 @@ public class AirlineDAOImpl implements AirlineDAO {
 				QueryMapper.BUSINESSSEATSOFAFLIGHT, Integer.class);
 		sqlQuery.setParameter(ARSConstants.FLIGHTNO, flightNo);
 		seatDetails[1] = sqlQuery.getSingleResult();
-		sqlQuery = entityManager.createQuery(
-				QueryMapper.PASSENGERSINFIRSTCLASSOFAFLIGHT, Integer.class);
-		sqlQuery.setParameter(ARSConstants.FLIGHTNO, flightNo);
-		seatDetails[2] = sqlQuery.getSingleResult();
-		sqlQuery = entityManager.createQuery(
-				QueryMapper.PASSENGERSINBUSINESSCLASSOFAFLIGHT, Integer.class);
-		sqlQuery.setParameter(ARSConstants.FLIGHTNO, flightNo);
-		seatDetails[3] = sqlQuery.getSingleResult();
 		logger.info("Flight occupancy details retrieved for flight: "
 				+ flightNo);
 		return seatDetails;
