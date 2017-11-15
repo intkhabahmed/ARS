@@ -6,7 +6,7 @@ public interface QueryMapper {
 	public static String SEARCHFLIGHTBYDEPARTUREANDARRIVALCITY = "SELECT f FROM Flight f WHERE f.deptCity=:deptCity AND f.arrCity=:arrCity";
 	public static String SEARCHFLIGHTBYFLIGHTNUMBER = "SELECT f FROM Flight f WHERE f.flightNo=:flightNo";
 	public static String FLIGHTINFORMATION = "SELECT f FROM Flight f";
-	public static String SEARCHFLIGHTBYARRIVALANDDEPARTURECITYANDDEPARTUREDATE = "SELECT f FROM Flight f where f.deptCity=:deptCity AND f.arrCity=:arrCity AND f.deptDate=:deptDate";
+	public static String SEARCHFLIGHTBYARRIVALANDDEPARTURECITYANDDEPARTUREDATE = "SELECT f FROM Flight f where f.deptCity=:deptCity AND f.arrCity=:arrCity AND f.deptDate=:deptDate AND (f.firstSeats>0 OR f.bussSeats>0)";
 	public static String BOOKINGINFORMATIONOFAFLIGHT = "SELECT b FROM BookingInformation b WHERE b.flightNo=:flightNo";
 	public static String USERINFORMATION = "SELECT u FROM User u WHERE u.username=:username";
 	public static String BOOKINGINFORMATIONBYEMAIL = "SELECT b FROM BookingInformation b WHERE b.userEmail=:email";

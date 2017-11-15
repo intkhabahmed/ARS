@@ -55,8 +55,8 @@ public interface AirlineService {
 	 * @return type Integer Array
 	 * @throws RuntimeException
 	 */
-	public int[] getFlightOccupancyDetails(String flightNo)
-			throws RuntimeException;
+	public void checkFlightOccupancyDetails(String flightNo, String classType,
+			int noOfPassengers) throws RuntimeException,AirlineException;
 
 	/**
 	 * @param booking
@@ -80,9 +80,10 @@ public interface AirlineService {
 	 * @param password
 	 * @return type User
 	 * @throws RuntimeException
-	 * @throws AirlineException 
+	 * @throws AirlineException
 	 */
-	public User changePassword(User user) throws RuntimeException, AirlineException;
+	public User changePassword(User user) throws RuntimeException,
+			AirlineException;
 
 	/**
 	 * @param user
@@ -90,7 +91,7 @@ public interface AirlineService {
 	 * @throws RuntimeException
 	 */
 	public User updateUser(User user) throws RuntimeException;
-	
+
 	/**
 	 * @return type List
 	 * @throws RuntimeException

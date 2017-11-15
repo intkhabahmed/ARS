@@ -89,6 +89,9 @@
 			<hr>
 			<c:if test="${flights.isEmpty() eq false}">
 				<div id="flightList">
+					<c:if test="${message !=''}">
+						<h3 class="text-center">${message}</h3>
+					</c:if>
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h1 class="text-center">Flights List</h1>
@@ -101,6 +104,7 @@
 									<th>Departure</th>
 									<th>Duration</th>
 									<th>Arrival</th>
+									<th>Available Seats</th>
 									<th>Price</th>
 									<th></th>
 								</tr>
@@ -112,9 +116,11 @@
 										<td>${flight.duration}</td>
 										<td>${flight.arrCity}<br>${flight.arrTime}</td>
 										<c:if test="${booking.classType eq 'First' }">
+											<td>${flight.firstSeats}</td>
 											<td><i class="fa fa-rupee"></i> ${flight.firstSeatsFare}</td>
 										</c:if>
 										<c:if test="${booking.classType eq 'Business' }">
+											<td>${flight.bussSeats}</td>
 											<td><i class="fa fa-rupee"></i> ${flight.bussSeatsFare}</td>
 										</c:if>
 										<td class="text-center">
