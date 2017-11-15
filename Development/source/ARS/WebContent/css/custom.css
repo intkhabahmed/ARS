@@ -46,10 +46,13 @@
 	width: 100%;
 	background: #000;
 	color: #fff;
-	position: static;
+	position: fixed;
 	bottom: 0;
-	margin-top: 5px;
 	min-height: 60px;
+}
+
+#footerSpace{
+	margin-top: 65px;
 }
 
 /***********************Error Page*********************************/
