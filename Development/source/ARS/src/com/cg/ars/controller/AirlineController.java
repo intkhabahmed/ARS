@@ -194,34 +194,6 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description It calls validLogin(user) of AirlineServiceImpl
-	 * @param user
-	 * @param model
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value = ARSConstants.URLLOGIN)
-	public String validateLogin(@ModelAttribute(ARSConstants.USER) User user,
-			Model model, HttpSession session) {
-		try {
-			user = airlineService.validateLogin(user);
-			if (null != user) {
-				session.setAttribute(ARSConstants.USER, user);
-				return showHomePage(model, session);
-			}
-		} catch (NoResultException noResultException) {
-			model.addAttribute(ARSConstants.MESSAGE,
-					ARSConstants.INVALIDUSERNAMEPWD);
-			model.addAttribute(ARSConstants.USER, new User());
-		} catch (RuntimeException runtimeException) {
-			model.addAttribute(ARSConstants.MESSAGE,
-					runtimeException.getMessage());
-			return ARSConstants.ERRORPAGE;
-		}
-		return ARSConstants.LOGIN;
-	}
-
-	/**
 	 * @description this function validates the login details after searching
 	 *              the flight
 	 * @param user
@@ -229,8 +201,8 @@ public class AirlineController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = ARSConstants.URLLOGINAFTERSEARCH)
-	public String validateLoginAfterSearch(
+	@RequestMapping(value = ARSConstants.URLLOGIN)
+	public String validateLogin(
 			@ModelAttribute(ARSConstants.USER) User user, Model model,
 			HttpSession session) {
 		String returnPage = "";
@@ -238,11 +210,15 @@ public class AirlineController {
 				.getAttribute(ARSConstants.BOOKINGINFO);
 		try {
 			user = airlineService.validateLogin(user);
-			if (user != null) {
-				session.removeAttribute(ARSConstants.BOOKINGINFO);
+			if (null != user) {
 				session.setAttribute(ARSConstants.USER, user);
-				return bookFlight(bookingInformation, model, session);
+				session.removeAttribute(ARSConstants.BOOKINGINFO);
+				if(null != bookingInformation.getFlightNo()){
+					return bookFlight(bookingInformation, model, session);
+				}
+				return showHomePage(model, session);
 			}
+			
 		} catch (NoResultException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					ARSConstants.INVALIDUSERNAMEPWD);
