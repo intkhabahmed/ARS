@@ -34,6 +34,10 @@ import com.cg.ars.utility.MyUtil;
 @Controller
 @SessionAttributes(ARSConstants.USER)
 public class AirlineController {
+
+	/**
+	 * injecting the airlineService class object
+	 */
 	@Autowired
 	AirlineService airlineService;
 
@@ -135,7 +139,7 @@ public class AirlineController {
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWSIGNUP)
 	public String showSignupPage(Model model) {
-		model.addAttribute(ARSConstants.USER, new User());
+		model.addAttribute(ARSConstants.USEROBJ, new User());
 		return ARSConstants.SIGNUP;
 	}
 
@@ -235,7 +239,6 @@ public class AirlineController {
 					runtimeException.getMessage());
 			return ARSConstants.ERRORPAGE;
 		}
-
 		model.addAttribute(ARSConstants.BOOKING, bookingInformation);
 		return returnPage;
 	}
@@ -435,7 +438,7 @@ public class AirlineController {
 	 * @return
 	 */
 	@RequestMapping(value = ARSConstants.URLFORGOTPWD, method = RequestMethod.POST)
-	public String forgotPassword(
+	public String changePassword(
 			@ModelAttribute(ARSConstants.USEROBJ) User user, Model model,
 			HttpSession session) {
 		String returnPage;
@@ -443,6 +446,13 @@ public class AirlineController {
 			user = airlineService.changePassword(user);
 			model.addAttribute(ARSConstants.MESSAGE, ARSConstants.PWDCHANGED);
 			model.addAttribute(ARSConstants.USER, new User());
+			if (null != session.getAttribute(ARSConstants.BOOKINGINFO)) {
+				model.addAttribute(ARSConstants.BOOKING,
+						session.getAttribute(ARSConstants.BOOKINGINFO));
+			} else {
+				model.addAttribute(ARSConstants.BOOKING,
+						new BookingInformation());
+			}
 			returnPage = ARSConstants.LOGIN;
 		} catch (AirlineException airlineException) {
 			model.addAttribute(ARSConstants.MESSAGE, ARSConstants.ERROR
