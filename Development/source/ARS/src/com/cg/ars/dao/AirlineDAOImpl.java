@@ -30,12 +30,13 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	private static Logger logger = Logger
 			.getLogger(com.cg.ars.dao.AirlineDAOImpl.class);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#retrieveFlights(java.lang.String,
-	 * java.lang.String) It returns the list of flight to service layer
+	
+	/**
+	 * @description - Retrieves list of flights from database
+	 * @param searchBasis - Criteria on which list of flights is returned. Can be by source, destination and date
+	 * @param query - Values of (source, destination and date) passed
+	 * @return List - List of flights based on searchBasis is returned
+	 * @exception RuntimeException - If no flight is present in the database
 	 */
 	@Override
 	public List<Flight> retrieveFlights(String query, String searchBasis)
@@ -77,12 +78,12 @@ public class AirlineDAOImpl implements AirlineDAO {
 		return sqlQuery.getResultList();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#viewBookings(java.lang.String,
-	 * java.lang.String) It views the booking information and returns the result
-	 * to service layer
+	/**
+	 * @description - Retrieves a list of bookings based on search basis
+	 * @param searchBasis - Criteria on which list of bookings is returned. Can be by flight number, username and booking id
+	 * @param query - Values of username, flight number or booking id is passed
+	 * @return List - List of bookings based on searchBasis is returned
+	 * @exception RuntimeException - If no booking details is present in the database
 	 */
 	@Override
 	public List<BookingInformation> retrieveBookings(String query,
@@ -117,12 +118,11 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#validateLogin(com.cg.as.entity.User) This
-	 * function checks that user is valid or not and returns the result to
-	 * service layer
+	/**
+	 * @description - Validates user credentials
+	 * @param user - User for whom credentials are validated
+	 * @return user - User is returned if found
+	 * @exception RuntimeException - If no flight is present in the database
 	 */
 	@Override
 	public User validateLogin(User user) throws RuntimeException {
@@ -135,11 +135,11 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#addUser(com.cg.as.entity.User) This
-	 * function does sign up and return user object to service layer
+	/**
+	 * @description - Inserts a new user in the database
+	 * @param user - User who is to be inserted in the database
+	 * @return user - User who is inserted in the database
+	 * @exception RuntimeException - If user is already present in the database
 	 */
 	@Override
 	public User addUser(User user) throws RuntimeException {
@@ -149,13 +149,12 @@ public class AirlineDAOImpl implements AirlineDAO {
 				+ user.getUsername());
 		return user;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.as.dao.IAirlineDAO#cancelBooking(java.lang.String) This
-	 * function cancels the booking and returns the booking object to service
-	 * layer
+	
+	/**
+	 * @description - Cancels the booking details for given booking Id
+	 * @param bookingId - booking Id for which booking is cancelled
+	 * @return BookingInformation -
+	 * @exception RuntimeException - 
 	 */
 	@Override
 	public BookingInformation cancelBooking(int bookingId)
@@ -168,13 +167,11 @@ public class AirlineDAOImpl implements AirlineDAO {
 		return booking;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.cg.as.dao.IAirlineDAO#getFlightOccupancyDetails(java.lang.String) It
-	 * returns the total first seats, total business seats, no. of passengers in
-	 * class type First and in class type Business to service layer
+	/**
+	 * @description - retrieves total first seats, total business seats, no. of passengers in class type First and business Type
+	 * @param flightNo - flightNo for which total first seats, total business seats, no. of passengers in class type First and business Type are calculated
+	 * @return Integer Array -
+	 * @exception RuntimeException - 
 	 */
 	@Override
 	public int[] getFlightOccupancyDetails(String flightNo)
@@ -202,12 +199,11 @@ public class AirlineDAOImpl implements AirlineDAO {
 		return seatDetails;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.cg.as.dao.IAirlineDAO#confirmBooking(com.cg.as.entity.BookingInformation
-	 * ) It confirms the booking and returns booking object to service layer
+	/**
+	 * @description - confirms the booking for given booking Object
+	 * @param booking - booking for which booking is confirmed
+	 * @return BookingInformation -
+	 * @exception RuntimeException - 
 	 */
 	@Override
 	public BookingInformation confirmBooking(BookingInformation booking)
@@ -219,19 +215,18 @@ public class AirlineDAOImpl implements AirlineDAO {
 		return booking;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.ars.dao.IAirlineDAO#checkAvailabiltiy(java.lang.String,
-	 * java.lang.String) It checks the availability of user in database and
-	 * returns the result to service layer
+	/**
+	 * @description - checks the availability of user 
+	 * @return List -
+	 * @param query - Criteria on which checks the availability of user.Can be userName , userEmail
+	 * @param searchBasis -
+	 * @exception RuntimeException - 
 	 */
 	@Override
 	public List<String> checkAvailabiltiy(String query, String searchBasis)
 			throws RuntimeException {
 		TypedQuery<String> sqlQuery = null;
 		if (searchBasis.equals(ARSConstants.BYUSERNAME)) {
-
 			sqlQuery = entityManager.createQuery(
 					QueryMapper.CHECKUSERNAMEISAVAILABLE, String.class);
 			sqlQuery.setParameter(ARSConstants.QUERY, query);
@@ -243,11 +238,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 		return sqlQuery.getResultList();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.ars.dao.IAirlineDAO#updateUser(com.cg.ars.entity.User) It
-	 * updates the details of user and returns User object to service layer
+	/**
+	 * @description - Modifies the details of a user
+	 * @param User -  User details are modified for this user
+	 * @exception RuntimeException - When user is not found
 	 */
 	@Override
 	public User updateUser(User user) throws RuntimeException {
@@ -256,11 +250,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 		return user;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.ars.dao.IAirlineDAO#updateFlight(com.cg.ars.entity.Flight) It
-	 * updates the flight details
+	/**
+	 * @description - Returns the details of a user
+	 * @param flight -  User details are fetched for this username
+	 * @exception RuntimeException - When user is not found
 	 */
 	@Override
 	public void updateFlight(Flight flight) throws RuntimeException {
@@ -268,11 +261,11 @@ public class AirlineDAOImpl implements AirlineDAO {
 		entityManager.flush();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.ars.dao.IAirlineDAO#getUserDetails(java.lang.String) It
-	 * returns the details of given user to service layer
+	/**
+	 * @description - Returns the details of a user
+	 * @param username -  User details are fetched for this username
+	 * @return User - Fetched  user details from the database is returned 
+	 * @exception RuntimeException - When user is not found
 	 */
 	@Override
 	public User getUserDetails(String username) throws RuntimeException {
@@ -282,11 +275,10 @@ public class AirlineDAOImpl implements AirlineDAO {
 		return query.getSingleResult();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.ars.dao.IAirlineDAO#getCities() It returns the list of all
-	 * cities present in the database to service layer
+	/**
+	 * @description - Returns the list of airport from the database
+	 * @return List - A list of airports in the database is returned
+	 * @exception RuntimeException - When airport detail is not found
 	 */
 	@Override
 	public List<Airport> getAirportDetails() throws RuntimeException {

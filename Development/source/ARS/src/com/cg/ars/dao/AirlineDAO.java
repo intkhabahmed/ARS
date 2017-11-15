@@ -14,7 +14,7 @@ import com.cg.ars.entity.User;
 public interface AirlineDAO {
 
 	/**
-	 * @param query
+	 * @param query 
 	 * @param searchBasis
 	 * @return type List
 	 * @throws RuntimeException
@@ -94,7 +94,7 @@ public interface AirlineDAO {
 	public void updateFlight(Flight flight) throws RuntimeException;
 	
 	/**
-	 * @param username
+	 * @param username 
 	 * @return type User
 	 * @throws RuntimeException
 	 */

@@ -41,6 +41,11 @@ public class AirlineController {
 	@Autowired
 	AirlineService airlineService;
 
+	/**
+	 * @description - Retrieves list of flights from database
+	 * @return List - List of flights based on searchBasis is returned
+	 * @exception RuntimeException - If no flight is present in the database
+	 */
 	@RequestMapping(value = ARSConstants.URLRETRIEVELISTOFFLIGHTS, method = RequestMethod.POST)
 	public String retrieveFlights(
 			@ModelAttribute(ARSConstants.BOOKING) BookingInformation bookingInformation,
@@ -76,7 +81,7 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description It calls the function getCities() of AirlineServiceImpl
+	 * @description - shows home page 
 	 * @param model
 	 * @param session
 	 * @return
@@ -106,7 +111,7 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description It adds booking object and user object to model
+	 * @description Shows login Page
 	 * @param model
 	 * @return
 	 */
