@@ -27,7 +27,6 @@ package com.cg.ars.utility;
 	 String URLSIGNUP = "/signup";
 	 String URLLOGOUT = "/logout";
 	 String URLLOGIN = "/login";
-	 String URLLOGINAFTERSEARCH = "/loginAfterSearch";
 	 String URLOCCUPANCYDETAIL = "viewOccupancyDetails.html";
 	 String URLSHOWBOOKING = "/showBooking";
 	 String URLCONFIRMBOOKING = "/confirmBooking";

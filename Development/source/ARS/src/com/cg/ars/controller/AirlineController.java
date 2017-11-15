@@ -149,7 +149,7 @@ public class AirlineController {
 	@RequestMapping(value = ARSConstants.URLSIGNUP, method = RequestMethod.POST)
 	public String addUser(Model model,
 			@Valid @ModelAttribute(ARSConstants.USEROBJ) User user,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, HttpSession session) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute(ARSConstants.USER, user);
 			return ARSConstants.SIGNUP;
@@ -167,6 +167,13 @@ public class AirlineController {
 			airlineService.addUser(user);
 			model.addAttribute(ARSConstants.MESSAGE, ARSConstants.SIGNUPSUCCESS);
 			model.addAttribute(ARSConstants.USER, new User());
+			if (null != session.getAttribute(ARSConstants.BOOKINGINFO)) {
+				model.addAttribute(ARSConstants.BOOKING,
+						session.getAttribute(ARSConstants.BOOKINGINFO));
+			} else {
+				model.addAttribute(ARSConstants.BOOKING,
+						new BookingInformation());
+			}
 			return ARSConstants.LOGIN;
 		} catch (AirlineException airlineException) {
 			model.addAttribute(ARSConstants.MESSAGE,
@@ -194,17 +201,16 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description this function validates the login details after searching
-	 *              the flight
+	 * @description validates the login details after and before searching the
+	 *              flight
 	 * @param user
 	 * @param model
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = ARSConstants.URLLOGIN)
-	public String validateLogin(
-			@ModelAttribute(ARSConstants.USER) User user, Model model,
-			HttpSession session) {
+	public String validateLogin(@ModelAttribute(ARSConstants.USER) User user,
+			Model model, HttpSession session) {
 		String returnPage = "";
 		BookingInformation bookingInformation = (BookingInformation) session
 				.getAttribute(ARSConstants.BOOKINGINFO);
@@ -213,12 +219,12 @@ public class AirlineController {
 			if (null != user) {
 				session.setAttribute(ARSConstants.USER, user);
 				session.removeAttribute(ARSConstants.BOOKINGINFO);
-				if(null != bookingInformation.getFlightNo()){
+				if (null != bookingInformation.getFlightNo()) {
 					return bookFlight(bookingInformation, model, session);
 				}
 				return showHomePage(model, session);
 			}
-			
+
 		} catch (NoResultException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
 					ARSConstants.INVALIDUSERNAMEPWD);
