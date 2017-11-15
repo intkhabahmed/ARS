@@ -33,7 +33,6 @@ import com.cg.ars.utility.MyUtil;
 @Controller
 @SessionAttributes(ARSConstants.USER)
 public class AirlineController {
-
 	/**
 	 * injecting the airlineService class object
 	 */
@@ -42,8 +41,8 @@ public class AirlineController {
 
 	/**
 	 *@description - Retrieves list of flights from database
-	 *@param bookingInformation -
-	 *@param model -
+	 *@param bookingInformation - Booking Information details are collected from form and passed as parameter
+	 *@param model - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLRETRIEVELISTOFFLIGHTS, method = RequestMethod.POST)
 	public String retrieveFlights(
@@ -80,7 +79,8 @@ public class AirlineController {
 
 	/**
 	 * @description - Shows home page 
-	 * @param model - 
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLINDEX)
 	public String showHomePage(Model model, HttpSession session) {
@@ -108,7 +108,7 @@ public class AirlineController {
 
 	/**
 	 * @description - Shows login Page
-	 * @param model -
+	 * @param model - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWLOGIN)
 	public String showLoginPage(Model model) {
@@ -119,8 +119,8 @@ public class AirlineController {
 
 	/**
 	 * @description Shows the login page after searching a flight 
-	 * @param model -
-	 * @param bookingInformation -
+	 * @param model - Model
+	 * @param bookingInformation - Booking Information details are collected from form and passed as parameter
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWLOGINAFTERSEARCH, method = RequestMethod.POST)
 	public String showLoginPageAfterSearch(
@@ -133,7 +133,7 @@ public class AirlineController {
 
 	/**
 	 * @description - shows signUp page
-	 * @param model -
+	 * @param model - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWSIGNUP)
 	public String showSignupPage(Model model) {
@@ -142,10 +142,9 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description - signs up 
-	 * @param model -
-	 * @param user -
-	 * @param bindingResult -
+	 * @description - Adds a new user to the database
+	 * @param model - Model
+	 * @param user - User object from form is passed
 	 */
 	@RequestMapping(value = ARSConstants.URLSIGNUP, method = RequestMethod.POST)
 	public String addUser(Model model,
@@ -190,8 +189,8 @@ public class AirlineController {
 
 	/**
 	 * @description -Terminates the session 
-	 * @param model -
-	 * @param session -
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLLOGOUT)
 	public String logout(Model model, SessionStatus status, HttpSession session) {
@@ -203,9 +202,9 @@ public class AirlineController {
 	/**
 	 * @description - Validates the login details after and before searching the
 	 *              flight
-	 * @param user -
-	 * @param model -
-	 * @param session -
+	 * @param user - User details for whom validation is to be carried out
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLLOGIN)
 	public String validateLogin(@ModelAttribute(ARSConstants.USER) User user,
@@ -240,9 +239,9 @@ public class AirlineController {
 
 	/**
 	 * @description - Books the flight 
-	 * @param bookingInformation -
-	 * @param model -
-	 * @param session -
+	 * @param bookingInformation - Booking Information details are collected from form and passed as parameter
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWBOOKING, method = RequestMethod.POST)
 	public String bookFlight(
@@ -285,8 +284,8 @@ public class AirlineController {
 
 	/**
 	 * @description - confirms the booking for given booking Object
-	 * @param bookingInformation -
-	 * @param model -
+	 * @param bookingInformation - Booking Information details are collected from form and passed as parameter
+	 * @param model - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLCONFIRMBOOKING, method = RequestMethod.POST)
 	public String confirmBooking(
@@ -310,9 +309,8 @@ public class AirlineController {
 
 	/**
 	 * @description - Updates the user details
-	 * @param user -
-	 * @param bindingResult -
-	 * @param model -
+	 * @param user - User details for whom updation is to be carried out
+	 * @param model - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLUPDATEUSER, method = RequestMethod.POST)
 	public String updateUser(
@@ -342,8 +340,8 @@ public class AirlineController {
 
 	/**
 	 * @description - Shows user profile
-	 * @param model -
-	 * @param session -
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWPROFILE)
 	public String showUserProfile(Model model, HttpSession session) {
@@ -363,8 +361,8 @@ public class AirlineController {
 	/**
 	 * @description - Cancels the booking details for given booking Id
 	 * @param bookingId - booking Id for which booking is cancelled
-	 * @param model -
-	 * @param session -
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLCANCELBOOKING, method = RequestMethod.GET)
 	public String cancelBooking(
@@ -391,8 +389,8 @@ public class AirlineController {
 	/**
 	 * @description - Shows the booking details according to given booking Id
 	 * @param bookingId - bookingId for which shows the booking Details
-	 * @param model -
-	 * @param session -
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLVIEWBOOKING, method = RequestMethod.GET)
 	public String viewBooking(
@@ -412,8 +410,8 @@ public class AirlineController {
 	}
 
 	/**
-	 * @description - 
-	 * @param model -
+	 * @description - Allows a user to change ones password
+	 * @param model - Model
 	 */
 	@RequestMapping(value = ARSConstants.URLSHOWFORGOTPWD)
 	public String showForgotPassword(Model model) {
@@ -423,9 +421,9 @@ public class AirlineController {
 
 	/**
 	 * @description Changes the password of the user
-	 * @param user -
-	 * @param model -
-	 * @param session -
+	 * @param user - User details for whom password has to be changed
+	 * @param model - Model
+	 * @param session - HttpSession
 	 */
 	@RequestMapping(value = ARSConstants.URLFORGOTPWD, method = RequestMethod.POST)
 	public String changePassword(
