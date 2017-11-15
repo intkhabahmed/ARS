@@ -2,6 +2,7 @@ package com.cg.ars.service;
 
 import java.util.List;
 
+import com.cg.ars.entity.Airport;
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
@@ -94,12 +95,5 @@ public interface AirlineService {
 	 * @return type List
 	 * @throws RuntimeException
 	 */
-	public List<String> getCities() throws RuntimeException;
-
-	/**
-	 * @param cityName
-	 * @return Type String
-	 * @throws RuntimeException
-	 */
-	public String getCityAbbreviation(String cityName) throws RuntimeException;
+	public List<Airport> getAirportDetails() throws RuntimeException;
 }

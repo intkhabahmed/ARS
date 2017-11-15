@@ -18,7 +18,7 @@ package com.cg.ars.utility;
 	 String BOOKINGINFO = "bookingInfo";
 	 String FLIGHTNO = "flightNo";
 	 String BOOKINGID = "bookingId";
-	 String AIRPORT = "airport";
+	 String AIRPORTS = "airports";
 	 String URLRETRIEVELISTOFFLIGHTS = "/retrieveListOfFlights";
 	 String URLINDEX = "/index";
 	 String URLSHOWLOGIN = "/showLogin";

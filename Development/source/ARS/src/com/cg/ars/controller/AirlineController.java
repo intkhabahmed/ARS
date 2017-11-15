@@ -42,11 +42,8 @@ public class AirlineController {
 			@ModelAttribute(ARSConstants.BOOKING) BookingInformation bookingInformation,
 			Model model) {
 		try {
-			String src = airlineService.getCityAbbreviation(bookingInformation
-					.getSrcCity());
-			String dest = airlineService.getCityAbbreviation(bookingInformation
-					.getDestCity());
-			String str = src + "=" + dest + "="
+			String str = bookingInformation.getSrcCity() + "="
+					+ bookingInformation.getDestCity() + "="
 					+ bookingInformation.getTravelDate();
 			model.addAttribute(ARSConstants.FLIGHTS,
 					airlineService.retrieveFlights(str, ARSConstants.BYUSER));
@@ -54,7 +51,8 @@ public class AirlineController {
 
 			model.addAttribute(ARSConstants.CLASSTYPEOPTION, new String[] {
 					ARSConstants.FIRST, ARSConstants.BUSINESS });
-			model.addAttribute(ARSConstants.AIRPORT, airlineService.getCities());
+			model.addAttribute(ARSConstants.AIRPORTS,
+					airlineService.getAirportDetails());
 			model.addAttribute(ARSConstants.DATE, Date.valueOf(LocalDate.now()));
 			if (bookingInformation.getSrcCity().equals(
 					bookingInformation.getDestCity())) {
@@ -92,7 +90,8 @@ public class AirlineController {
 			model.addAttribute(ARSConstants.CLASSTYPEOPTION, new String[] {
 					ARSConstants.FIRST, ARSConstants.BUSINESS });
 
-			model.addAttribute(ARSConstants.AIRPORT, airlineService.getCities());
+			model.addAttribute(ARSConstants.AIRPORTS,
+					airlineService.getAirportDetails());
 			model.addAttribute(ARSConstants.DATE, Date.valueOf(LocalDate.now()));
 		} catch (RuntimeException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,
@@ -208,8 +207,7 @@ public class AirlineController {
 			user = airlineService.validateLogin(user);
 			if (null != user) {
 				session.setAttribute(ARSConstants.USER, user);
-				showHomePage(model, session);
-				return ARSConstants.INDEX;
+				return showHomePage(model, session);
 			}
 		} catch (NoResultException noResultException) {
 			model.addAttribute(ARSConstants.MESSAGE,
@@ -423,8 +421,10 @@ public class AirlineController {
 			@RequestParam(ARSConstants.BOOKINGID) String bookingId,
 			Model model, HttpSession session) {
 		try {
-			model.addAttribute(ARSConstants.BOOKING, airlineService
-					.retrieveBookings(bookingId, ARSConstants.BYBOOKINGID).get(0));
+			model.addAttribute(
+					ARSConstants.BOOKING,
+					airlineService.retrieveBookings(bookingId,
+							ARSConstants.BYBOOKINGID).get(0));
 			return ARSConstants.BOOKINGDETAILS;
 		} catch (RuntimeException runtimeException) {
 			model.addAttribute(ARSConstants.MESSAGE,

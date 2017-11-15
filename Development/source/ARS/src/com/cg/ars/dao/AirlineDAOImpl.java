@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
+import com.cg.ars.entity.Airport;
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
@@ -29,19 +30,6 @@ public class AirlineDAOImpl implements AirlineDAO {
 
 	private static Logger logger = Logger
 			.getLogger(com.cg.ars.dao.AirlineDAOImpl.class);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.ars.dao.AirlineDAO#getCityAbbreviation(java.lang.String)
-	 */
-	@Override
-	public String getCityAbbreviation(String cityName) throws RuntimeException {
-		TypedQuery<String> sqlQuery = entityManager.createQuery(
-				QueryMapper.GETABBREVIATION, String.class);
-		sqlQuery.setParameter("location", cityName.toUpperCase());
-		return sqlQuery.getSingleResult();
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -301,9 +289,9 @@ public class AirlineDAOImpl implements AirlineDAO {
 	 * cities present in the database to service layer
 	 */
 	@Override
-	public List<String> getCities() throws RuntimeException {
-		TypedQuery<String> query = entityManager.createQuery(
-				QueryMapper.GETALLCITIES, String.class);
+	public List<Airport> getAirportDetails() throws RuntimeException {
+		TypedQuery<Airport> query = entityManager.createQuery(
+				QueryMapper.GETAIRPORTDETAILS, Airport.class);
 		return query.getResultList();
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.ars.dao.AirlineDAO;
+import com.cg.ars.entity.Airport;
 import com.cg.ars.entity.BookingInformation;
 import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
@@ -203,20 +204,7 @@ public class AirlineServiceImpl implements AirlineService {
 	 * AirlineController
 	 */
 	@Override
-	public List<String> getCities() throws RuntimeException {
-		return airlineDAO.getCities();
+	public List<Airport> getAirportDetails() throws RuntimeException {
+		return airlineDAO.getAirportDetails();
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.cg.ars.service.IAirlineService#getAbbreviation(java.lang.String)
-	 * description: It calls getAbbreviation(cityName) of data access layer and
-	 * return the abbreviation of cities
-	 */
-	@Override
-	public String getCityAbbreviation(String cityName) throws RuntimeException {
-		return airlineDAO.getCityAbbreviation(cityName);
-	}
-
 }

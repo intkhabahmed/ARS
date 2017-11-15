@@ -18,7 +18,7 @@ public interface QueryMapper {
 	public static String FORGOTPWD = "Update User u Set u.pwd where u.username=:username";
 	public static String CHECKUSERNAMEISAVAILABLE = "Select u.username from User u where u.username=:query";
 	public static String CHECKEMAILISAVAILABLE = "Select u.email from User u where u.email=:query";
-	public static String GETALLCITIES = "Select a.location from Airport a";
+	public static String GETAIRPORTDETAILS = "Select a from Airport a";
 	public static String GETABBREVIATION = "SELECT a.abbreviation FROM Airport a WHERE a.location=:location";
 	public static String BOOKINGINFOBYBOOKINGID = "SELECT b FROM BookingInformation b WHERE b.bookingId=:bookingId";
 	public static String VALIDATEUSERNAMEANDPASSWORD = "SELECT u FROM User u WHERE u.username=:user AND u.pwd=:pass";

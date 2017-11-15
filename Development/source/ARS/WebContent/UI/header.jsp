@@ -22,7 +22,6 @@
 			  		<li id="login_btn_cover"><a href="showLogin.html" class="btn btn-default">Login/Signup</a></li>
 			  	</c:if>
 			  	<c:if test="${sessionScope.user.username ne null}">
-			  		<c:set var="user" value="${sessionScope.user}" scope="session"/>
 			  		<li class="dropdown">
 					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> ${sessionScope.user.username} <span class="caret"></span></a>
 					  <ul class="dropdown-menu">
