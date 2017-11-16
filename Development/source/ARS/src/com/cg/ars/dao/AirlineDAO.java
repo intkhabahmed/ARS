@@ -8,15 +8,17 @@ import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
 
 /**
+ * @description Data Access Object Interface containing all functions associated
+ *              with the corresponding actor
  * @author inahmed
  *
  */
 public interface AirlineDAO {
 
 	/**
-	 * @param query
+	 * @param query 
 	 * @param searchBasis
-	 * @return type List
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<Flight> retrieveFlights(String query, String searchBasis)
@@ -25,7 +27,7 @@ public interface AirlineDAO {
 	/**
 	 * @param query
 	 * @param searchBasis
-	 * @return type List
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<BookingInformation> retrieveBookings(String query,
@@ -33,21 +35,21 @@ public interface AirlineDAO {
 
 	/**
 	 * @param user
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
 	 */
 	public User addUser(User user) throws RuntimeException;
 
 	/**
 	 * @param user
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
 	 */
 	public User validateLogin(User user) throws RuntimeException;
 
 	/**
 	 * @param bookingId
-	 * @return type BookingInformation
+	 * @return BookingInformation
 	 * @throws RuntimeException
 	 */
 	public BookingInformation cancelBooking(int bookingId)
@@ -55,7 +57,7 @@ public interface AirlineDAO {
 
 	/**
 	 * @param flightNo
-	 * @return type Integer Array
+	 * @return Array
 	 * @throws RuntimeException
 	 */
 	public int[] getFlightOccupancyDetails(String flightNo)
@@ -63,7 +65,7 @@ public interface AirlineDAO {
 
 	/**
 	 * @param booking
-	 * @return type BookingInformation
+	 * @return BookingInformation
 	 * @throws RuntimeException
 	 */
 	public BookingInformation confirmBooking(BookingInformation booking)
@@ -72,7 +74,7 @@ public interface AirlineDAO {
 	/**
 	 * @param query
 	 * @param searchBasis
-	 * @return type String
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<String> checkAvailabiltiy(String query, String searchBasis)
@@ -80,7 +82,7 @@ public interface AirlineDAO {
 
 	/**
 	 * @param user
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
 	 */
 	public User updateUser(User user) throws RuntimeException;
@@ -88,20 +90,20 @@ public interface AirlineDAO {
 
 	/**
 	 * @param flight
-	 * @return type void
+	 * @return void
 	 * @throws RuntimeException
 	 */
 	public void updateFlight(Flight flight) throws RuntimeException;
 	
 	/**
 	 * @param username
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
 	 */
 	public User getUserDetails(String username) throws RuntimeException;
 
 	/**
-	 * @return type List
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<Airport> getAirportDetails() throws RuntimeException;

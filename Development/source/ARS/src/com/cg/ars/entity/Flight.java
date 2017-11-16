@@ -55,6 +55,26 @@ public class Flight {
 		super();
 	}
 
+	public Flight(String flightNo, String flightName, String deptCity,
+			String arrCity, Date deptDate, Date arrDate, String deptTime,
+			String arrTime, int firstSeats, double firstSeatsFare,
+			int bussSeats, double bussSeatsFare, String duration) {
+		super();
+		this.flightNo = flightNo;
+		this.flightName = flightName;
+		this.deptCity = deptCity;
+		this.arrCity = arrCity;
+		this.deptDate = deptDate;
+		this.arrDate = arrDate;
+		this.deptTime = deptTime;
+		this.arrTime = arrTime;
+		this.firstSeats = firstSeats;
+		this.firstSeatsFare = firstSeatsFare;
+		this.bussSeats = bussSeats;
+		this.bussSeatsFare = bussSeatsFare;
+		this.duration = duration;
+	}
+
 	public String getFlightNo() {
 		return flightNo;
 	}

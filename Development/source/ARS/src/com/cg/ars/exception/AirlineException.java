@@ -1,5 +1,10 @@
 package com.cg.ars.exception;
 
+/**
+ * @description User defined exception class
+ * @author INTKHAB
+ *
+ */
 public class AirlineException extends Exception {
 
 	/**
@@ -31,5 +36,4 @@ public class AirlineException extends Exception {
 		super(arg0, arg1, arg2, arg3);
 
 	}
-
 }

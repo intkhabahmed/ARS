@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Airport")
-public class Airport implements Serializable{
+public class Airport implements Serializable {
 
 	/**
 	 * 
@@ -80,5 +80,4 @@ public class Airport implements Serializable{
 				+ ", abbreviation=" + abbreviation + ", location=" + location
 				+ "]";
 	}
-
 }

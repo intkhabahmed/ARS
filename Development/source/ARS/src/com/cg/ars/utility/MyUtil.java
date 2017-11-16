@@ -1,8 +1,7 @@
 package com.cg.ars.utility;
 
 public class MyUtil {
-	
-	
+
 	private MyUtil() {
 		super();
 	}

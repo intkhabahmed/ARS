@@ -8,12 +8,16 @@ import com.cg.ars.entity.Flight;
 import com.cg.ars.entity.User;
 import com.cg.ars.exception.AirlineException;
 
+/**
+ * @author INTKHAB
+ *
+ */
 public interface AirlineService {
 
 	/**
 	 * @param query
 	 * @param searchBasis
-	 * @return type List
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<Flight> retrieveFlights(String query, String searchBasis)
@@ -22,7 +26,7 @@ public interface AirlineService {
 	/**
 	 * @param query
 	 * @param searchBasis
-	 * @return type List
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<BookingInformation> retrieveBookings(String query,
@@ -30,14 +34,14 @@ public interface AirlineService {
 
 	/**
 	 * @param user
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
 	 */
 	public User addUser(User user) throws RuntimeException;
 
 	/**
 	 * @param bookingId
-	 * @return type BookingInformation
+	 * @return BookingInformation
 	 * @throws RuntimeException
 	 */
 	public BookingInformation cancelBooking(int bookingId)
@@ -45,22 +49,24 @@ public interface AirlineService {
 
 	/**
 	 * @param user
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
 	 */
 	public User validateLogin(User user) throws RuntimeException;
 
 	/**
 	 * @param flightNo
-	 * @return type Integer Array
+	 * @param classType
+	 * @param noOfPassengers
+	 * @return Integer Array
 	 * @throws RuntimeException
 	 */
-	public int[] getFlightOccupancyDetails(String flightNo)
-			throws RuntimeException;
+	public void checkFlightOccupancyDetails(String flightNo, String classType,
+			int noOfPassengers) throws RuntimeException, AirlineException;
 
 	/**
 	 * @param booking
-	 * @return type BookingInformation
+	 * @return BookingInformation
 	 * @throws RuntimeException
 	 */
 	public BookingInformation confirmBooking(BookingInformation booking)
@@ -69,7 +75,7 @@ public interface AirlineService {
 	/**
 	 * @param query
 	 * @param searchBasis
-	 * @return type boolean
+	 * @return boolean
 	 * @throws RuntimeException
 	 */
 	public boolean checkAvailabiltiy(String query, String searchBasis)
@@ -78,21 +84,22 @@ public interface AirlineService {
 	/**
 	 * @param username
 	 * @param password
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
-	 * @throws AirlineException 
+	 * @throws AirlineException
 	 */
-	public User changePassword(User user) throws RuntimeException, AirlineException;
+	public User changePassword(User user) throws RuntimeException,
+			AirlineException;
 
 	/**
 	 * @param user
-	 * @return type User
+	 * @return User
 	 * @throws RuntimeException
 	 */
 	public User updateUser(User user) throws RuntimeException;
-	
+
 	/**
-	 * @return type List
+	 * @return List
 	 * @throws RuntimeException
 	 */
 	public List<Airport> getAirportDetails() throws RuntimeException;

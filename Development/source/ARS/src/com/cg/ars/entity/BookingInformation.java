@@ -70,6 +70,24 @@ public class BookingInformation {
 		super();
 	}
 
+	public BookingInformation(int bookingId, String userEmail,
+			int noOfPassengers, String classType, double totalFare,
+			String creditCardInfo, String srcCity, String destCity,
+			String flightNo, Date bookingDate, Date travelDate) {
+		super();
+		this.bookingId = bookingId;
+		this.userEmail = userEmail;
+		this.noOfPassengers = noOfPassengers;
+		this.classType = classType;
+		this.totalFare = totalFare;
+		this.creditCardInfo = creditCardInfo;
+		this.srcCity = srcCity;
+		this.destCity = destCity;
+		this.flightNo = flightNo;
+		this.bookingDate = bookingDate;
+		this.travelDate = travelDate;
+	}
+
 	public int getBookingId() {
 		return bookingId;
 	}
